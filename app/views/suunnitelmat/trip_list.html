@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Käyttäjän xxx kalareissut</h1>
+
+<p>
+    <a href="#" class="btn btn-success">Lisää reissu</a>
+</p>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Päivämäärä</th>
+            <th>Nimi / kuvaus ...</th>      
+            <th>Aloitus</th>
+            <th>Lopetus</th>
+            <th>Lämpötila</th>
+            <th>Vesi</th>
+            <th>Pilvisyys</th>
+            <th>Tuuli (m/s)</th>
+            <th>Tuulen suunta</th>            
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <!--listataan reissut-->
+        <tr>
+            <td><a href="#">20.5.2016</td>
+            <td>keväinen kalareissu m...</td>
+            <td>10.00</td>
+            <td>14.30</td>
+            <td>17</td>
+            <td>13</td>
+            <td>puolipilvistä</td>
+            <td>8</td>
+            <td>itä</td>
+            <td><a class="btn btn-default btn-sm" href="#">Muokkaa</a></td>
+        </tr>
+    </tbody>    
+</table>
+{% endblock %}

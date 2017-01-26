@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Reissu 1</h1>
+<!-- Painikkeet tähän -->
+<p>
+    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
+</p>
+
+<!-- Tiedot tulee listana tähän -->
+<ul>
+    <li><strong>Päivämäärä:</strong> 20.5.2016</li>
+    <li><strong>Aloitus:</strong> 10.00</li>    
+    <li><strong>Lopetus:</strong> 14.30</li>
+    <li><strong>Lämpötila:</strong> 17</li>
+    <li><strong>Veden lämpötila:</strong> 13</li>
+    <li><strong>Pilvisyys:</strong> puolipilvistä</li>
+    <li><strong>Tuulen nopeus:</strong> 8 m/s</li>
+    <li><strong>Tuulen suunta:</strong> itä</li>
+</ul>
+
+<!-- Kuvaus tulee tähän -->
+<h2>Kuvaus</h2>
+<p>
+    keväinen kalareissu mökillä plaa plaa plaa
+</p>
+
+<!-- Saadut kalat -->
+<h2>Saadut kalat</h2>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Kala</th>
+            <th>Paino</th>
+            <th>Kalapaikka</th>                       
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- Listataan kalat tähän -->
+        <tr>
+            <td><a href="#">Hauki</a></td>
+            <td>2,4 kg</td>    
+            <td>Silakkarysä</td>        
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
+
