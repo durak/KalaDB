@@ -13,6 +13,7 @@ Yleisiä linkkejä:
 
 Kalastajan henkilökohtainen saalispäiväkirja, johon käyttäjä lisää tietoja kalareissuistaan, saaduista kaloista, kalapaikoistaan ja vieheistään. 
 
+
 ## Html-mallinäkymiä
 
 * [Etusivu / login](http://itkoskin.users.cs.helsinki.fi/tsoha/login)
@@ -24,4 +25,10 @@ Kalastajan henkilökohtainen saalispäiväkirja, johon käyttäjä lisää tieto
 * [Yksi viehe](http://itkoskin.users.cs.helsinki.fi/tsoha/viehe/1)
 * [Kalapaikat](http://itkoskin.users.cs.helsinki.fi/tsoha/kalapaikka)
 * [Yksi kalapaikka](http://itkoskin.users.cs.helsinki.fi/tsoha/kalapaikka/1)
+
+## Viikko 3
+Toteutus tietokohteelle Lure: model lure, näkymät views/lure, lure_controller.
+* [Viehelistaus](http://itkoskin.users.cs.helsinki.fi/tsoha/lure)
+* [Yksi viehe](http://itkoskin.users.cs.helsinki.fi/tsoha/lure/1)
+* [Lisäys](http://itkoskin.users.cs.helsinki.fi/tsoha/lure/new)
 

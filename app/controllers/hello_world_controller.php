@@ -1,5 +1,7 @@
 <?php
 
+//require 'app/models/lure.php';
+
 class HelloWorldController extends BaseController {
 
     public static function index() {
@@ -10,8 +12,14 @@ class HelloWorldController extends BaseController {
 
     public static function sandbox() {
         // Testaa koodiasi täällä
+        $eka = Lure::find(1);
+        $kaikki = Lure::all();
+        
+        Kint::dump($eka);
+        Kint::dump($kaikki);
+        
 //      echo 'Hello World!';
-        View::make('helloworld.html');
+//        View::make('helloworld.html');
     }
 
     public static function trip_list() {

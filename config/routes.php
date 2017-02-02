@@ -31,11 +31,28 @@ $routes->get('/kalapaikka', function() {
 $routes->get('/kalapaikka/1', function() {
     HelloWorldController::spot_show();
 });
+
+$routes->get('/lure', function() {
+    LureController::index();
+});
+
+$routes->post('/lure', function() {
+    LureController::store();
+});
+
+$routes->get('/lure/new', function() {
+    LureController::create();
+});
+
+$routes->get('/lure/:id', function($id) {
+    LureController::show($id);
+});
+
 $routes->get('/viehe', function() {
     HelloWorldController::lure_list();
 });
 
-$routes->get('/viehe/1', function() {
+$routes->get('/viehe/:id', function($id) {
     HelloWorldController::lure_show();
 });
 
