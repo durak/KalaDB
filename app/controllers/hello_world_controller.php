@@ -12,18 +12,26 @@ class HelloWorldController extends BaseController {
 
     public static function sandbox() {
         // Testaa koodiasi täällä
-        $eka = Lure::find(1);
-        $kaikki = Lure::all();
-        $liianlyhytlure = new Lure(array(
-            'lurename' => 'asd',
-            'luretype' => 'lusikka',
-            'color' => 'sininen'
-        ));
-        $errors = $liianlyhytlure->errors();
+//        $eka = Lure::find(1);
+//        $kaikki = Lure::all();
+//        $liianlyhytlure = new Lure(array(
+//            'lurename' => 'asd',
+//            'luretype' => 'lusikka',
+//            'color' => 'sininen'
+//        ));
+//        $errors = $liianlyhytlure->errors();
+//        
+//        Kint::dump($errors);
+//        Kint::dump($eka);
+//        Kint::dump($kaikki);
+        $user = self::get_user_logged_in();
         
-        Kint::dump($errors);
-        Kint::dump($eka);
-        Kint::dump($kaikki);
+        $ykkonen = self::match_logged_user(1);
+        $kakkonen = self::match_logged_user(2);
+        
+        Kint::dump($user);
+        Kint::dump($ykkonen);
+        Kint::dump($kakkonen);
         
 //      echo 'Hello World!';
 //        View::make('helloworld.html');

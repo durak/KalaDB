@@ -19,9 +19,9 @@ class Lure extends BaseModel {
         $this->validators = array('validate_lurename', 'validate_luretype', 'validate_lurecolor');
     }
 
-    public static function all() {
-        $query = DB::connection()->prepare('SELECT * FROM Lure');
-        $query->execute();
+    public static function all($id) {
+        $query = DB::connection()->prepare('SELECT * FROM Lure WHERE player_id = :id');
+        $query->execute(array('id' => $id));
         $rows = $query->fetchAll();
         $lures = array();
 
@@ -59,8 +59,8 @@ class Lure extends BaseModel {
     }
 
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Lure (lurename, luretype, color) VALUES (:lurename, :luretype, :color) RETURNING id');
-        $query->execute(array('lurename' => $this->lurename, 'luretype' => $this->luretype, 'color' => $this->color));
+        $query = DB::connection()->prepare('INSERT INTO Lure (player_id, lurename, luretype, color) VALUES (:player_id, :lurename, :luretype, :color) RETURNING id');
+        $query->execute(array('player_id' => $this->player_id, 'lurename' => $this->lurename, 'luretype' => $this->luretype, 'color' => $this->color));
 
         $row = $query->fetch();
         $this->id = $row['id'];
@@ -68,12 +68,12 @@ class Lure extends BaseModel {
 
     public function update() {
         $query = DB::connection()->prepare('UPDATE Lure SET lurename = :lurename, luretype = :luretype, color = :color WHERE id = :id');
-        $query->execute(array('lurename' => $this->lurename, 'luretype' => $this->luretype, 'color' => $this->color, 'id'=> $this->id));
+        $query->execute(array('lurename' => $this->lurename, 'luretype' => $this->luretype, 'color' => $this->color, 'id' => $this->id));
     }
-    
+
     public function destroy() {
         $query = DB::connection()->prepare('DELETE FROM Lure WHERE id = :id');
-        $query->execute(array('id' => $this->id));                
+        $query->execute(array('id' => $this->id));
     }
 
     public static function getLureTypes() {
@@ -88,6 +88,9 @@ class Lure extends BaseModel {
         $errors = array();
         if (self::validate_string_length($this->lurename, 3)) {
             $errors[] = 'Nimen tulee olla vähintään kolme merkkiä pitkä.';
+        }
+        if (!self::validate_string_length($this->lurename, 51)) {
+            $errors[] = 'Nimen tulee olla enintään 50 merkkiä pitkä.';
         }
         return $errors;
     }

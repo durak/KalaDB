@@ -1,20 +1,25 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Silakkarysä</h1>
+{% import "macros/forms.html" as forms %}
+
+{% if message %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endif %}
+
+<h1>{{spot.spotname}}</h1>
 <!-- Painikkeet tähän -->
-<p>
-    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
-</p>
+    <a href="{{base_path}}/spot/{{spot.id}}/edit" class="btn btn-default">Muokkaa</a>
+    {{ forms.destroy_button("#{base_path}/spot/#{spot.id}/destroy") }}
 
 
-<!-- Kuvaus tulee tähän -->
 <h2>Kuvaus</h2>
-<p>
-    ---
-</p>
+<p>{{spot.description}}</p>
+
 
 <!-- Saadut kalat -->
-<h2>Paikasta saadut kalat</h2>
+<h2>Paikasta Silakkarysä saadut kalat</h2>
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
@@ -38,4 +43,3 @@
     </tbody>
 </table>
 {% endblock %}
-

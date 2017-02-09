@@ -2,7 +2,7 @@
 {% block content %}
 {% import "macros/forms.html" as forms %}
 
-<h1>Lisää viehe</h1>
+<h1>Lisää kalapaikka</h1>
 
 {% if errors %}
     <div class="alert alert-danger">
@@ -14,22 +14,17 @@
     </div>
 {% endif %}
 
-<form method="post" action="{{base_path}}/lure">
+<form method="post" action="{{base_path}}/spot">
     <div class="form-group">
         <label>Nimi</label>
-        <input type="text" name="lurename" class="form-control" value="{{ attributes.lurename }}">
+        <input type="text" name="spotname" class="form-control" value="{{ attributes.spotname }}">
     </div>
 
     <div class="form-group">
-        <label>Tyyppi</label>
-        {{ forms.attribute_value_selector(attributes, "luretype", attributes.luretype, luretypes, "Valitse tyyppi") }}
+        <label>Kuvaus</label>
+		<input type="text" name="description" class="form-control" value="{{ attributes.description }}">        
     </div>
-
-    <div class="form-group">
-        <label>Väritys</label>
-        {{ forms.attribute_value_selector(attributes, "color", attributes.color, lurecolors, "Valitse väri") }}
-    </div>
-
+    
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Lisää</button>
     </div>

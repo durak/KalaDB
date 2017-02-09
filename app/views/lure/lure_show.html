@@ -2,9 +2,11 @@
 {% block content %}
 {% import "macros/forms.html" as forms %}
 
-<!--<div class="alert alert-success">
-  {{message}}
-</div>-->
+{% if message %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endif %}
 
 <h1>{{lure.lurename}}</h1>
 <!-- Painikkeet tähän -->

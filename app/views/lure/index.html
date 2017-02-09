@@ -1,7 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Käyttäjän xxx vieheet</h1>
 
+
+{% if message %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+
+{% endif %}
+<h1>Käyttäjän {{user_logged_in.username}} vieheet</h1>
 <p>
     <a href="{{base_path}}/lure/new" class="btn btn-success">Lisää viehe</a>
 </p>
@@ -22,7 +29,7 @@
             <td><a href="{{base_path}}/lure/{{lure.id}}">{{lure.lurename}}</td>
             <td>{{lure.luretype}}</td>
             <td>{{lure.color}}</td>
-            <td><a class="btn btn-default btn-sm" href="#">Muokkaa</a></td>
+            <td><a class="btn btn-default btn-sm" href="{{base_path}}/lure/{{lure.id}}/edit">Muokkaa</a></td>
         </tr>
         {% endfor %}
     </tbody>    

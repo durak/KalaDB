@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if message %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endif %}
+
+<h1>Käyttäjän {{user_logged_in.username}} kalapaikat</h1>
+
+<p>
+    <a href="{{base_path}}/spot/new" class="btn btn-success">Lisää kalapaikka</a>
+</p>
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Kuvaus</th>           
+            <th>Kaloja</th>
+        </tr>
+    </thead>
+
+    <tbody>        
+        {% for spot in spots %}
+        <tr>
+            <td><a href="{{base_path}}/spot/{{spot.id}}">{{spot.spotname}}</td>
+            <td>{{spot.description}}</td>    
+            <td>kalojen count</td>
+        </tr>
+        {% endfor %}
+    </tbody>    
+</table>
+{% endblock %}

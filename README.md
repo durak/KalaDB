@@ -32,3 +32,11 @@ Toteutus tietokohteelle Lure: model lure, näkymät views/lure, lure_controller.
 * [Yksi viehe](http://itkoskin.users.cs.helsinki.fi/tsoha/lure/1)
 * [Lisäys](http://itkoskin.users.cs.helsinki.fi/tsoha/lure/new)
 
+## Viikko 4
+Jatkettu tietokohdetta Lure ja aloitettu myös kalapaikat (Spot).
+
+[Linkki sivustolle](http://itkoskin.users.cs.helsinki.fi/tsoha)
+
+Kirjautuminen:
+ - tunnus: aa
+ - salasana: bb

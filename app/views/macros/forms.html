@@ -6,7 +6,10 @@
 
 {% macro attribute_value_selector(attributes, selectAttribute, attributePreviousValue, options, choiceText) %}
     <select name="{{selectAttribute}}" class="form-control">
-        <option value"noselection">{{choiceText|default('Valitse')}}</option>
+        {% if (not attributePreviousValue) or (attributePreviousValue == choiceText) %}        
+            <option value"noselection">{{choiceText|default('Valitse')}}</option>
+        {% endif %}
+        
         {% for element in options %}
             {% if element == attributePreviousValue %}
                 <option value="{{ element }}" selected>{{ element }}</option>
