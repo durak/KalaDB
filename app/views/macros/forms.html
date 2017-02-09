@@ -1,0 +1,18 @@
+{% macro destroy_button(action, text) %}
+  <form method="post" action="{{action}}" style="display: inline-block;">
+    <button type="submit" class="btn btn-danger" onclick="return confirm('Oletko varma?')">{{text|default('Poista')}}</button>
+  </form>
+{% endmacro %}
+
+{% macro attribute_value_selector(attributes, selectAttribute, attributePreviousValue, options, choiceText) %}
+    <select name="{{selectAttribute}}" class="form-control">
+        <option value"noselection">{{choiceText|default('Valitse')}}</option>
+        {% for element in options %}
+            {% if element == attributePreviousValue %}
+                <option value="{{ element }}" selected>{{ element }}</option>
+            {% else %}
+                <option value="{{ element }}">{{ element }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>     
+{% endmacro %}

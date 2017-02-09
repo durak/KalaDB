@@ -18,7 +18,10 @@ class LureController extends BaseController {
     }
 
     public static function create() {
-        View::make('lure/new.html');
+        $luretypes = Lure::getLureTypes();
+        $lurecolors = Lure::getLureColors();
+        View::make('lure/new.html', array('luretypes' => $luretypes,
+            'lurecolors' => $lurecolors));
     }
 
     public static function store() {
@@ -30,11 +33,57 @@ class LureController extends BaseController {
             'color' => $params['color']
         ));
 
-//        Kint::dump($params);
+        $errors = $lure->errors();
+        if (count($errors) == 0) {
+            $lure->save();
+            Redirect::to('/lure/' . $lure->id, array('message' => 'Viehe lisätty!'));
+        } else {
+            // löytyi virheitä
+            $luretypes = Lure::getLureTypes();
+            $lurecolors = Lure::getLureColors();
+            View::make('lure/new.html', array('errors' => $errors,
+                'lurename_value' => $lure->lurename,
+                'luretype_selected' => $lure->luretype,
+                'color_selected' => $lure->color,
+                'luretypes' => $luretypes,
+                'lurecolors' => $lurecolors));
+        }
+    }
 
-        $lure->save();
+    public static function edit($id) {
+        $luretypes = Lure::getLureTypes();
+        $lurecolors = Lure::getLureColors();
+        $lure = Lure::find($id);
+        View::make('lure/edit.html', array('attributes' => $lure, 'luretypes' => $luretypes, 'lurecolors' => $lurecolors));
+    }
 
-        Redirect::to('/lure/' . $lure->id, array('message' => 'Viehe lisätty!'));
+    public static function update($id) {
+        $params = $_POST;
+
+        $attributes = array(
+            'id' => $id,
+            'lurename' => $params['lurename'],
+            'luretype' => $params['luretype'],
+            'color' => $params['color']
+        );
+
+        $lure = new Lure($attributes);
+        $errors = $lure->errors();
+
+        if (count($errors) > 0) {
+            $luretypes = Lure::getLureTypes();
+            $lurecolors = Lure::getLureColors();
+            View::make('lure/edit.html', array('attributes' => $attributes, 'errors' => $errors, 'luretypes' => $luretypes, 'lurecolors' => $lurecolors));
+        } else {
+            $lure->update();
+            Redirect::to('/lure/' . $lure->id, array('message' => 'Viehe muokattu.'));
+        }
+    }
+
+    public static function destroy($id) {
+        $lure = new Lure(array('id' => $id));
+        $lure->destroy();
+        Redirect::to('/lure', array('message' => 'Viehe poistettu'));
     }
 
 }

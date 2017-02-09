@@ -35,8 +35,19 @@ $routes->get('/kalapaikka/1', function() {
 $routes->get('/lure', function() {
     LureController::index();
 });
+$routes->get('/lure/:id/edit', function($id) {
+    LureController::edit($id);
+});
 
-$routes->post('/lure', function() {
+$routes->post('/lure/:id/edit', function($id) {
+    LureController::update($id);
+});
+
+$routes->post('/lure/:id/destroy', function($id) {
+    LureController::destroy($id);
+});
+
+$routes->post('/lure', function() {    
     LureController::store();
 });
 
@@ -47,6 +58,10 @@ $routes->get('/lure/new', function() {
 $routes->get('/lure/:id', function($id) {
     LureController::show($id);
 });
+
+
+
+
 
 $routes->get('/viehe', function() {
     HelloWorldController::lure_list();

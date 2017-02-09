@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "macros/forms.html" as forms %}
 
 <!--<div class="alert alert-success">
   {{message}}
@@ -7,9 +8,10 @@
 
 <h1>{{lure.lurename}}</h1>
 <!-- Painikkeet tähän -->
-<p>
-    <button class="btn btn-danger">Poista</button> <a href="#" class="btn btn-default">Muokkaa</a>
-</p>
+    <a href="{{base_path}}/lure/{{lure.id}}/edit" class="btn btn-default">Muokkaa</a>
+    {{ forms.destroy_button("#{base_path}/lure/#{lure.id}/destroy") }}
+
+
 
 <!-- Tiedot tulee listana tähän -->
 <ul>

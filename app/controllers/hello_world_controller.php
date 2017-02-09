@@ -14,7 +14,14 @@ class HelloWorldController extends BaseController {
         // Testaa koodiasi täällä
         $eka = Lure::find(1);
         $kaikki = Lure::all();
+        $liianlyhytlure = new Lure(array(
+            'lurename' => 'asd',
+            'luretype' => 'lusikka',
+            'color' => 'sininen'
+        ));
+        $errors = $liianlyhytlure->errors();
         
+        Kint::dump($errors);
         Kint::dump($eka);
         Kint::dump($kaikki);
         
