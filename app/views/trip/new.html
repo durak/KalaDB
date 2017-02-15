@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "macros/forms.html" as forms %}
+
+<h1>Lisää kalareissu</h1>
+
+{% if errors %}
+<div class="alert alert-danger">
+    <ul>
+        {% for error in errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+<form method="post" action="{{base_path}}/trip">
+    <div class="form-group">
+        <label>Päivämäärä</label>
+        <input type="date" name="tripday" class="form-control" value="{{ attributes.tripday }}">
+    </div>
+
+    <div class="form-group">
+        <label>Nimi</label>
+        <input type="text" name="tripname" class="form-control" value="{{ attributes.tripname }}">
+    </div>
+
+    <div class="form-group">
+        <label>Aloitusaika</label>
+        <input type="time" name="start_time" class="form-control" value="{{ attributes.start_time }}">
+    </div>
+
+    <div class="form-group">
+        <label>Lopetussaika</label>
+        <input type="time" name="end_time" class="form-control" value="{{ attributes.end_time }}">
+    </div>
+
+    <div class="form-group">
+        <label>Lämpötila</label>
+        <input type="number" name="temperature" class="form-control" value="{{ attributes.temperature }}">
+    </div>
+
+    <div class="form-group">
+        <label>Veden lämpötila</label>
+        <input type="number" name="water_temperature" class="form-control" value="{{ attributes.water_temperature }}">
+    </div>
+
+    <div class="form-group">
+        <label>Pilvisyys</label>
+        {{ forms.attribute_value_selector(attributes, "clouds", attributes.clouds, cloudtypes, "Valitse pilvisyys") }}
+    </div>
+
+    <div class="form-group">
+        <label>Tuuli (metriä sekunnissa)</label>
+        <input type="number" name="wind_mps" class="form-control" value="{{ attributes.wind_mps }}">
+    </div>
+
+    <div class="form-group">
+        <label>Tuulen suunta</label>
+        {{ forms.attribute_value_selector(attributes, "wind_direction", attributes.wind_direction, winddirections, "Valitse tuulen suunta") }}
+    </div>
+
+    <div class="form-group">
+        <label>Kuvaus</label>
+        <input type="text" name="description" class="form-control" value="{{ attributes.description }}">
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">Lisää</button>
+    </div>
+</form>
+{% endblock %}

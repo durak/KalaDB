@@ -8,11 +8,10 @@
 class LureController extends BaseController {
 
     public static function index() {
-
         $user = self::get_user_logged_in();
         $id = $user->id;
-
         $lures = Lure::all($id);
+
         View::make('lure/index.html', array('lures' => $lures));
     }
 
@@ -24,9 +23,9 @@ class LureController extends BaseController {
     }
 
     public static function create() {
-
-        View::make('lure/new.html', array('luretypes' => Lure::getLureTypes(),
-            'lurecolors' => Lure::getLureColors()));
+        
+        View::make('lure/new.html', array('luretypes' => Lure::$LURE_TYPES,
+            'lurecolors' => Lure::$LURE_COLORS));
     }
 
     public static function store() {
@@ -35,11 +34,12 @@ class LureController extends BaseController {
         $errors = $lure->errors();
 
         if (count($errors) > 0) {
+
             View::make('lure/new.html', array('attributes' => $attributes,
-                'errors' => $errors, 'luretypes' => Lure::getLureTypes(),
-                'lurecolors' => Lure::getLureColors()));
+                'errors' => $errors, 'luretypes' => Lure::$LURE_TYPES,
+                'lurecolors' => Lure::$LURE_COLORS));
         } else {
-            
+
             $lure->save();
             Redirect::to('/lure/' . $lure->id, array('message' => 'Viehe lisätty!'));
         }
@@ -50,12 +50,12 @@ class LureController extends BaseController {
         self::check_is_owner($lure);
 
         View::make('lure/edit.html', array('attributes' => $lure,
-            'luretypes' => Lure::getLureTypes(), 'lurecolors' => Lure::getLureColors()));
+            'luretypes' => Lure::$LURE_TYPES, 'lurecolors' => Lure::$LURE_COLORS));
     }
 
     public static function update($id) {
         self::check_is_owner(Lure::find($id));
-
+        
         $attributes = self::postAttributes();
         $attributes['id'] = $id;
         $lure = new Lure($attributes);
@@ -64,8 +64,8 @@ class LureController extends BaseController {
         if (count($errors) > 0) {
 
             View::make('lure/edit.html', array('attributes' => $attributes,
-                'errors' => $errors, 'luretypes' => Lure::getLureTypes(),
-                'lurecolors' => Lure::getLureColors()));
+                'errors' => $errors, 'luretypes' => Lure::$LURE_TYPES,
+                'lurecolors' => Lure::$LURE_COLORS));
         } else {
 
             $lure->update();
@@ -76,8 +76,8 @@ class LureController extends BaseController {
     public static function destroy($id) {
         $lure = Lure::find($id);
         self::check_is_owner($lure);
+        
         $lure->destroy();
-
         Redirect::to('/lure', array('message' => 'Viehe poistettu'));
     }
 

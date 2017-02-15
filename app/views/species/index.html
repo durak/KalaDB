@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+{% if message %}
+    <div class="alert alert-success">
+        {{message}}
+    </div>
+{% endif %}
+
+<h1>Suomalaisia kalalajeja</h1>
+
+
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Nimi</th>
+            <th>Nimi lat.</th>                       
+        </tr>
+    </thead>
+
+    <tbody>        
+        {% for species in speciess %}
+        <tr>
+            <td><a href="{{base_path}}/species/{{species.id}}">{{species.name_fin}}</td>
+            <td>{{species.name_lat}}</td>                
+        </tr>
+        {% endfor %}
+    </tbody>    
+</table>
+{% endblock %}

@@ -17,7 +17,21 @@ class Spot extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array('validate_spotname', 'validate_description');        
+        $this->validators = array('validate_spotname', 'validate_description');
+    }
+
+    /*
+     * CRUD
+     */
+
+    private static function selectAttributes($row) {
+
+        return array(
+            'id' => $row['id'],
+            'player_id' => $row['player_id'],
+            'spotname' => $row['spotname'],
+            'description' => $row['description']
+        );
     }
 
     public static function all($id) {
@@ -27,13 +41,9 @@ class Spot extends BaseModel {
         $spots = array();
 
         foreach ($rows as $row) {
-            $spots[] = new Spot(array(
-                'id' => $row['id'],
-                'player_id' => $row['player_id'],
-                'spotname' => $row['spotname'],
-                'description' => $row['description'],
-            ));
+            $spots[] = new Spot(self::selectAttributes($row));
         }
+        
         return $spots;
     }
 
@@ -43,12 +53,7 @@ class Spot extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
-            $spot = new Spot(array(
-                'id' => $row['id'],
-                'player_id' => $row['player_id'],
-                'spotname' => $row['spotname'],
-                'description' => $row['description'],
-            ));
+            $spot = new Spot(self::selectAttributes($row));
 
             return $spot;
         }
@@ -58,7 +63,11 @@ class Spot extends BaseModel {
 
     public function save() {
         $query = DB::connection()->prepare('INSERT INTO Spot (player_id, spotname, description) VALUES (:player_id, :spotname, :description) RETURNING id');
-        $query->execute(array('player_id' => $this->player_id, 'spotname' => $this->spotname, 'description' => $this->description));
+        $query->execute(array(
+            'player_id' => $this->player_id,
+            'spotname' => $this->spotname,
+            'description' => $this->description
+        ));
 
         $row = $query->fetch();
         $this->id = $row['id'];
@@ -66,13 +75,21 @@ class Spot extends BaseModel {
 
     public function update() {
         $query = DB::connection()->prepare('UPDATE Spot SET spotname = :spotname, description = :description WHERE id = :id');
-        $query->execute(array('spotname' => $this->spotname, 'description' => $this->description, 'id' => $this->id));
+        $query->execute(array(
+            'spotname' => $this->spotname,
+            'description' => $this->description,
+            'id' => $this->id
+        ));
     }
 
     public function destroy() {
         $query = DB::connection()->prepare('DELETE FROM Spot WHERE id = :id');
         $query->execute(array('id' => $this->id));
     }
+
+    /*
+     * VALIDATORS
+     */
 
     public function validate_spotname() {
         $errors = array();

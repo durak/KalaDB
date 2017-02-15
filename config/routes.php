@@ -53,7 +53,7 @@ $routes->post('/lure/:id/destroy', 'check_logged_in', function($id) {
     LureController::destroy($id);
 });
 
-$routes->post('/lure', 'check_logged_in', function() {    
+$routes->post('/lure', 'check_logged_in', function() {
     LureController::store();
 });
 
@@ -65,7 +65,10 @@ $routes->get('/lure/:id', 'check_logged_in', function($id) {
     LureController::show($id);
 });
 
-// Kalapaikka
+/*
+ * Kalapaikat
+ */
+
 $routes->get('/spot', 'check_logged_in', function() {
     SpotController::index();
 });
@@ -81,7 +84,7 @@ $routes->post('/spot/:id/destroy', 'check_logged_in', function($id) {
     SpotController::destroy($id);
 });
 
-$routes->post('/spot', 'check_logged_in', function() {    
+$routes->post('/spot', 'check_logged_in', function() {
     SpotController::store();
 });
 
@@ -93,11 +96,60 @@ $routes->get('/spot/:id', 'check_logged_in', function($id) {
     SpotController::show($id);
 });
 
-// Kalalajit
-$routes->get('/spot', function() {
+/*
+ * Kalalajit
+ */
+
+$routes->get('/species', function() {
     SpeciesController::index();
 });
 
+$routes->get('/species/:id', function() {
+    SpeciesController::show();
+});
+
+/*
+ * Kalareissut
+ */
+
+$routes->get('/trip', 'check_logged_in', function() {
+    TripController::index();
+});
+$routes->get('/trip/:id/edit', 'check_logged_in', function($id) {
+    TripController::edit($id);
+});
+
+$routes->post('/trip/:id/edit', 'check_logged_in', function($id) {
+    TripController::update($id);
+});
+
+$routes->post('/trip/:id/destroy', 'check_logged_in', function($id) {
+    TripController::destroy($id);
+});
+
+$routes->post('/trip', 'check_logged_in', function() {
+    TripController::store();
+});
+
+$routes->get('/trip/new', 'check_logged_in', function() {
+    TripController::create();
+});
+
+$routes->get('/trip/:id', 'check_logged_in', function($id) {
+    TripController::show($id);
+});
+
+/*
+ * Kalat
+ */
+
+$routes->get('/fish', 'check_logged_in', function() {
+    FishController::index();
+});
+
+/*
+ * LOGIN
+ */
 $routes->get('/login', function() {
     UserController::login();
 });
@@ -107,5 +159,5 @@ $routes->post('/login', function() {
 });
 
 $routes->post('/logout', function() {
-    UserController::logout(); 
+    UserController::logout();
 });

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+{% import "macros/forms.html" as forms %}
+
+{% if message %}
+<div class="alert alert-success">
+    {{message}}
+</div>
+{% endif %}
+
+<h1>{{trip.tripdate}} {{trip.tripname}}</h1>
+<!-- Painikkeet tähän -->
+<a href="{{base_path}}/trip/{{trip.id}}/edit" class="btn btn-default">Muokkaa</a>
+{{ forms.destroy_button("#{base_path}/trip/#{trip.id}/destroy") }}
+
+
+<!-- Tiedot tulee listana tähän -->
+<p></p>
+<ul>    
+    <li><strong>Aloitus:</strong> {{trip.start_time}}</li>    
+    <li><strong>Lopetus:</strong> {{trip.end_time}}</li>
+    <li><strong>Lämpötila:</strong> {{trip.temperature}}</li>
+    <li><strong>Veden lämpötila:</strong> {{trip.water_temperature}}</li>
+    <li><strong>Pilvisyys:</strong> {{trip.clouds}}</li>
+    <li><strong>Tuulen nopeus:</strong> {{trip.wind_mps}}</li>
+    <li><strong>Tuulen suunta:</strong> {{trip.wind_direction}}</li>
+</ul>
+
+<!-- Kuvaus tulee tähän -->
+{% if trip.description %}
+<h2>Kuvaus</h2>
+<p>{{trip.description}}</p>
+{% endif %}
+
+<!-- Saadut kalat -->
+<h2>Saadut kalat</h2>
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>Kala</th>
+            <th>Paino</th>
+            <th>Kalapaikka</th>                       
+        </tr>
+    </thead>
+
+    <tbody>
+        <!-- Listataan kalat tähän -->
+        <tr>
+            <td><a href="#">Hauki</a></td>
+            <td>2,4 kg</td>    
+            <td>Silakkarysä</td>        
+        </tr>
+    </tbody>
+</table>
+{% endblock %}
+
