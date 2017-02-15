@@ -93,7 +93,10 @@ $routes->get('/spot/:id', 'check_logged_in', function($id) {
     SpotController::show($id);
 });
 
-
+// Kalalajit
+$routes->get('/spot', function() {
+    SpeciesController::index();
+});
 
 $routes->get('/login', function() {
     UserController::login();

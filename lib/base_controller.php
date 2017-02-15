@@ -20,7 +20,7 @@ class BaseController {
             Redirect::to('/login', array('error' => 'Kirjaudu sisään, ole hyvä'));
         }
     }
-    
+
     public static function match_logged_user($id) {
         $user = self::get_user_logged_in();
         $user_id = $user->id;
@@ -28,6 +28,12 @@ class BaseController {
             return false;
         }
         return true;
+    }
+
+    public static function check_is_owner($object) {
+        if (!$object or ! self::match_logged_user($object->player_id)) {
+            Redirect::to('/', array('error' => 'Ei oikeuksia!'));
+        }
     }
 
 }

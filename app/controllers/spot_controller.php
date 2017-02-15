@@ -24,9 +24,10 @@ class SpotController extends BaseController {
 
     public static function show($id) {
         $spot = Spot::find($id);
-        if (!$spot || !self::match_logged_user($spot->player_id)) {
-            Redirect::to('/', array('error' => 'Ei oikeuksia!'));
-        }
+        self::check_is_owner($spot);
+//        if (!$spot || !self::match_logged_user($spot->player_id)) {
+//            Redirect::to('/', array('error' => 'Ei oikeuksia!'));
+//        }
 
         View::make('spot/spot_show.html', array('spot' => $spot));
     }
@@ -59,19 +60,14 @@ class SpotController extends BaseController {
 
     public static function edit($id) {
         $spot = Spot::find($id);
-
-        if (!$spot || !self::match_logged_user($spot->player_id)) {
-            Redirect::to('/', array('error' => 'Ei oikeuksia!'));
-        }
+        self::check_is_owner($spot);
 
         View::make('spot/edit.html', array('attributes' => $spot));
     }
 
     public static function update($id) {
         $oldspot = Spot::find($id);
-        if (!$oldspot || !self::match_logged_user($oldspot->player_id)) {
-            Redirect::to('/', array('error' => 'Ei oikeuksia!'));
-        }
+        self::check_is_owner($oldspot);
 
         $params = $_POST;
 
@@ -96,9 +92,7 @@ class SpotController extends BaseController {
 
     public static function destroy($id) {
         $spot = Spot::find($id);
-        if (!$spot || !self::match_logged_user($spot->player_id)) {
-            Redirect::to('/', array('error' => 'Ei oikeuksia!'));
-        }
+        self::check_is_owner($spot);
 
         $spot->destroy();
         Redirect::to('/spot', array('message' => 'Kalapaikka poistettu'));
