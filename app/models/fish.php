@@ -29,6 +29,7 @@ class Fish extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
+        $this->validators = array();
     }
 
     /*
@@ -112,12 +113,39 @@ class Fish extends BaseModel {
     }
 
     public static function find($id) {
-        $query = DB::connection()->prepare('SELECT * FROM Fish WHERE id = :id LIMIT 1');
+        $query = DB::connection()->prepare(
+                'SELECT Fish.*,
+                    Trip.tripname,
+                    Trip.tripday,
+                    Trip.start_time,
+                    Trip.end_time,
+                    Trip.temperature,
+                    Trip.water_temperature,
+                    Trip.clouds,
+                    Trip.wind_mps,
+                    Trip.wind_direction,
+                    Species.name_fin,
+                    Species.name_lat,
+                    Spot.spotname,
+                    Lure.lurename,
+                    Lure.luretype,
+                    Lure.color
+                FROM Fish
+                INNER JOIN Trip
+                    ON trip_id = Trip.id
+                INNER JOIN Species
+                    ON species_id = Species.id
+                INNER JOIN Spot
+                    ON spot_id = Spot.id
+                INNER JOIN Lure
+                    ON lure_id = Lure.id
+                WHERE Fish.id = :id LIMIT 1'
+        );
         $query->execute(array('id' => $id));
         $row = $query->fetch();
 
         if ($row) {
-            $fish = self::selectAttributes($row);
+            $fish = new Fish(self::selectAttributes($row));
 
             return $fish;
         }

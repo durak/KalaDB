@@ -47,7 +47,7 @@
 
     <div class="form-group">
         <label>Pilvisyys</label>
-        {{ forms.attribute_value_selector(attributes, "clouds", attributes.clouds, cloudtypes, "Valitse pilvisyys") }}
+        {{ forms.constant_value_selector("clouds", attributes.clouds, cloudtypes, "Valitse pilvisyys") }}
     </div>
 
     <div class="form-group">
@@ -57,7 +57,7 @@
 
     <div class="form-group">
         <label>Tuulen suunta</label>
-        {{ forms.attribute_value_selector(attributes, "wind_direction", attributes.wind_direction, winddirections, "Valitse tuulen suunta") }}
+        {{ forms.constant_value_selector("wind_direction", attributes.wind_direction, winddirections, "Valitse tuulen suunta") }}
     </div>
 
     <div class="form-group">

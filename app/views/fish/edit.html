@@ -2,7 +2,7 @@
 {% block content %}
 {% import "macros/forms.html" as forms %}
 
-<h1>Lisää kala</h1>
+<h1>Muokkaa kalaa</h1>
 
 {% if errors %}
 <div class="alert alert-danger">
@@ -14,16 +14,21 @@
 </div>
 {% endif %}
 
-<form method="post" action="{{base_path}}/fish">
+<form method="post" action="{{base_path}}/fish/{{attributes.id}}/edit">
 
     <div class="form-group">
         <label>Kalareissu</label>
         <select name="trip_id" class="form-control">
-            {% if (not attributes.tripname) %}        
+            {% if (not attributes.trip_id) %}        
             <option value"noselection">Valitse</option>
             {% endif %}
-            {% for trip in trips %}            
+
+            {% for trip in trips %}    
+            {% if trip.id == attributes.trip_id %}
+            <option value="{{trip.id}}" selected>{{trip.tripday}} {{trip.tripname}}</option>
+            {% else %}                       
             <option value ="{{trip.id}}">{{trip.tripday}} {{trip.tripname}}</option>
+            {% endif %}
             {% endfor %}
         </select>
     </div>
@@ -34,8 +39,13 @@
             {% if (not attributes.species_id) %}        
             <option value"noselection">Valitse</option>
             {% endif %}
+
             {% for species in speciess %}            
+            {% if species.id == attributes.species_id %}
+            <option value ="{{species.id}}" selected>{{species.name_fin}}</option>
+            {% else %}
             <option value ="{{species.id}}">{{species.name_fin}}</option>
+            {% endif %}
             {% endfor %}
         </select>
     </div>
@@ -46,8 +56,13 @@
             {% if (not attributes.spot_id) %}        
             <option value"noselection">Valitse</option>
             {% endif %}
+            
             {% for spot in spots %}            
+            {% if spot.id == attributes.spot_id %}
+            <option value ="{{spot.id}}" selected>{{spot.spotname}}</option>
+            {% else %}
             <option value ="{{spot.id}}">{{spot.spotname}}</option>
+            {% endif %}
             {% endfor %}
         </select>
     </div>
@@ -58,8 +73,13 @@
             {% if (not attributes.lure_id) %}        
             <option value"noselection">Valitse</option>
             {% endif %}
+            
             {% for lure in lures %}            
+            {% if lure.id == attributes.lure_id %}
+            <option value ="{{lure.id}}" selected>{{lure.lurename}}</option>
+            {% else %}
             <option value ="{{lure.id}}">{{lure.lurename}}</option>
+            {% endif %}
             {% endfor %}
         </select>
     </div>
@@ -85,7 +105,7 @@
     </div>
 
     <div class="form-group">
-        <button type="submit" class="btn btn-primary">Lisää</button>
+        <button type="submit" class="btn btn-primary">Tallenna</button>
     </div>
 </form>
 {% endblock %}

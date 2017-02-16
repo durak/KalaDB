@@ -147,6 +147,31 @@ $routes->get('/fish', 'check_logged_in', function() {
     FishController::index();
 });
 
+$routes->get('/fish/:id/edit', 'check_logged_in', function($id) {
+    FishController::edit($id);
+});
+
+$routes->post('/fish/:id/edit', 'check_logged_in', function($id) {
+    FishController::update($id);
+});
+
+$routes->post('/fish/:id/destroy', 'check_logged_in', function($id) {
+    FishController::destroy($id);
+});
+
+$routes->post('/fish', 'check_logged_in', function() {
+    FishController::store();
+});
+
+$routes->get('/fish/new', 'check_logged_in', function() {
+    FishController::create();
+});
+
+$routes->get('/fish/:id', 'check_logged_in', function($id) {
+    FishController::show($id);
+});
+
+
 /*
  * LOGIN
  */

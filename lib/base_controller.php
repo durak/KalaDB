@@ -32,7 +32,7 @@ class BaseController {
 
     public static function check_is_owner($object) {
         if (!$object or ! self::match_logged_user($object->player_id)) {
-            Redirect::to('/', array('error' => 'Ei oikeuksia!'));
+            Redirect::to('/', array('error' => 'Ei oikeuksia!'));            
         }
     }
 

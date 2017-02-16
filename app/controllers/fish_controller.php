@@ -29,8 +29,15 @@ class FishController extends BaseController {
     }
 
     public static function create() {
+        $id = self::get_user_logged_in()->id;
+        $trips = Trip::all($id);
+        $spots = Spot::all($id);
+        $lures = Lure::all($id);
+        $speciess = Species::all();
 
-        View::make('fish/new.html', array('fishingmethods' => Fish::$FISHING_METHODS));
+        View::make('fish/new.html', array('trips' => $trips,
+            'spots' => $spots, 'lures' => $lures,
+            'speciess' => $speciess, 'fishingmethods' => Fish::$FISHING_METHODS));
     }
 
     public static function store() {
@@ -53,8 +60,15 @@ class FishController extends BaseController {
         $fish = Fish::find($id);
         self::check_is_owner($fish);
 
-        View::make('fish/edit.html', array('attributes' => $fish,
-            'fishingmethods' => Fish::$FISHING_METHODS));
+        $id = self::get_user_logged_in()->id;
+        $trips = Trip::all($id);
+        $spots = Spot::all($id);
+        $lures = Lure::all($id);
+        $speciess = Species::all();
+
+        View::make('fish/edit.html', array('attributes' => $fish, 'trips' => $trips,
+            'spots' => $spots, 'lures' => $lures,
+            'speciess' => $speciess, 'fishingmethods' => Fish::$FISHING_METHODS));
     }
 
     public static function update($id) {
@@ -66,9 +80,16 @@ class FishController extends BaseController {
         $errors = $fish->errors();
 
         if (count($errors) > 0) {
+            $id = self::get_user_logged_in()->id;
+            $trips = Trip::all($id);
+            $spots = Spot::all($id);
+            $lures = Lure::all($id);
+            $speciess = Species::all();
 
             View::make('fish/edit.html', array('attributes' => $attributes,
-                'errors' => $errors, 'fishingmethods' => Fish::$FISHING_METHODS));
+                'errors' => $errors, 'trips' => $trips,
+                'spots' => $spots, 'lures' => $lures,
+                'speciess' => $speciess, 'fishingmethods' => Fish::$FISHING_METHODS));
         } else {
 
             $fish->update();
@@ -87,7 +108,7 @@ class FishController extends BaseController {
     private static function postAttributes() {
         $params = $_POST;
         $attributes = array(
-            'player_id' => $params['player_id'],
+            'player_id' => self::get_user_logged_in()->id,
             'trip_id' => $params['trip_id'],
             'species_id' => $params['species_id'],
             'spot_id' => $params['spot_id'],

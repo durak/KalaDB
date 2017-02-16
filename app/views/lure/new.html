@@ -21,13 +21,13 @@
     </div>
 
     <div class="form-group">
-        <label>Tyyppi</label>
-        {{ forms.attribute_value_selector(attributes, "luretype", attributes.luretype, luretypes, "Valitse tyyppi") }}
+        <label>Tyyppi</label>        
+        {{ forms.constant_value_selector("luretype", attributes.luretype, luretypes, "Valitse tyyppi") }}
     </div>
 
     <div class="form-group">
-        <label>Väritys</label>
-        {{ forms.attribute_value_selector(attributes, "color", attributes.color, lurecolors, "Valitse väri") }}
+        <label>Väritys</label>        
+        {{ forms.constant_value_selector("color", attributes.color, lurecolors, "Valitse väri") }}
     </div>
 
     <div class="form-group">
