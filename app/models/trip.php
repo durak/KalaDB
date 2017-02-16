@@ -127,4 +127,60 @@ class Trip extends BaseModel {
         $query->execute(array('id' => $this->id));
     }
 
+    /*
+     * VALIDATORS
+     */
+
+    public function validate_tripname() {
+        $errors = array();
+        if (self::validate_string_length($this->triname, 3)) {
+            $errors[] = 'Nimen tulee olla vähintään kolme merkkiä pitkä.';
+        }
+        if (!self::validate_string_length($this->tripname, 51)) {
+            $errors[] = 'Nimen tulee olla enintään 50 merkkiä pitkä.';
+        }
+        return $errors;
+    }
+
+    public function validate_tripday() {
+        
+    }
+
+    public function validate_start_and_end_time() {
+        
+    }
+
+    public function validate_temperatures() {
+        
+    }
+
+    public function validate_clouds() {
+        $errors = array();
+        if (!in_array($this->clouds, self::$CLOUDS_TYPES)) {
+            $errors[] = 'Valitse pilvisyys.';
+        }
+        return $errors;
+    }
+
+    public function validate_wind_mps() {
+        
+    }
+
+    public function validate_wind_direction() {
+        $errors = array();
+        if (!in_array($this->wind_direction, self::$WIND_DIRECTIONS)) {
+            $errors[] = 'Valitse tuulen suunta';
+        }
+        return $errors;
+    }
+
+    public function validate_description() {
+        $errors = array();
+
+        if (!self::validate_string_length($this->description, 1001)) {
+            $errors[] = 'Kuvauksen tulee olla enintään 1000 merkkiä pitkä.';
+        }
+        return $errors;
+    }
+
 }

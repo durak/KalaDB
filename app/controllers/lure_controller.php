@@ -19,11 +19,12 @@ class LureController extends BaseController {
         $lure = Lure::find($id);
         self::check_is_owner($lure);
 
-        View::make('lure/lure_show.html', array('lure' => $lure));
+        $fishs = Fish::AllWithLure(self::get_user_logged_in()->id, $id);
+        View::make('lure/lure_show.html', array('lure' => $lure, 'fishs' => $fishs));
     }
 
     public static function create() {
-        
+
         View::make('lure/new.html', array('luretypes' => Lure::$LURE_TYPES,
             'lurecolors' => Lure::$LURE_COLORS));
     }
@@ -55,7 +56,7 @@ class LureController extends BaseController {
 
     public static function update($id) {
         self::check_is_owner(Lure::find($id));
-        
+
         $attributes = self::postAttributes();
         $attributes['id'] = $id;
         $lure = new Lure($attributes);
@@ -76,7 +77,7 @@ class LureController extends BaseController {
     public static function destroy($id) {
         $lure = Lure::find($id);
         self::check_is_owner($lure);
-        
+
         $lure->destroy();
         Redirect::to('/lure', array('message' => 'Viehe poistettu'));
     }

@@ -24,8 +24,9 @@ class SpotController extends BaseController {
     public static function show($id) {
         $spot = Spot::find($id);
         self::check_is_owner($spot);
-
-        View::make('spot/spot_show.html', array('spot' => $spot));
+        
+        $fishs = Fish::AllWithSpot(self::get_user_logged_in()->id, $id);
+        View::make('spot/spot_show.html', array('spot' => $spot, 'fishs' => $fishs));
     }
 
     public static function create() {

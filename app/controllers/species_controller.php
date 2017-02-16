@@ -12,9 +12,16 @@
  * @author itkoskin
  */
 class SpeciesController extends BaseController {
-        public static function index() {
-                
+
+    public static function index() {
+
         $speciess = Species::all();
         View::make('species/index.html', array('speciess' => $speciess));
     }
+    
+    public static function show($id) {
+        Redirect::to('/', array('error' => 'not implemented yet!'));  
+        
+    }
+
 }

@@ -3,43 +3,32 @@
 {% import "macros/forms.html" as forms %}
 
 {% if message %}
-    <div class="alert alert-success">
-        {{message}}
-    </div>
+<div class="alert alert-success">
+    {{message}}
+</div>
 {% endif %}
 
+
+<h3><i>Kalapaikka:</i></h3>
 <h1>{{spot.spotname}}</h1>
+
+
 <!-- Painikkeet tähän -->
-    <a href="{{base_path}}/spot/{{spot.id}}/edit" class="btn btn-default">Muokkaa</a>
-    {{ forms.destroy_button("#{base_path}/spot/#{spot.id}/destroy") }}
+<p></p>
+<a href="{{base_path}}/spot/{{spot.id}}/edit" class="btn btn-default">Muokkaa</a>
+{{ forms.destroy_button("#{base_path}/spot/#{spot.id}/destroy") }}
+
+{% if spot.description %}
+<h3><i>Kuvaus</i></h3>
+<p>{{spot.description}}</p>      
+{% endif %}
 
 
-<h2>Kuvaus</h2>
-<p>{{spot.description}}</p>
 
 
 <!-- Saadut kalat -->
-<h2>Paikasta Silakkarysä saadut kalat</h2>
-<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Kala</th>
-            <th>Paino</th>
-            <th>Päivämäärä</th>
-            <th>Kellonaika</th>
-            <th>Pyyntitapa</th>                       
-        </tr>
-    </thead>
-
-    <tbody>
-        <!-- Listataan kalat tähän -->
-        <tr>
-            <td><a href="#">Hauki</a></td>
-            <td>2,4 kg</td>
-            <td>20.5.2016</td>    
-            <td>10.00 - 14.30</td>
-            <td>Heitto</td>        
-        </tr>
-    </tbody>
-</table>
+{% if fishs|length > 0 %}
+<h3><i>Saadut kalat</i></h3>
+{% include '/fish/list_fishes.html' %}
+{% endif %}
 {% endblock %}

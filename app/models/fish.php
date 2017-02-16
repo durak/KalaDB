@@ -29,7 +29,7 @@ class Fish extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array();
+        $this->validators = array('validate_trip');
     }
 
     /*
@@ -72,7 +72,6 @@ class Fish extends BaseModel {
     }
 
     public static function all($id) {
-//        $query = DB::connection()->prepare('SELECT * FROM Fish WHERE player_id = :id');
         $query = DB::connection()->prepare(
                 'SELECT Fish.*,
                     Trip.tripname,
@@ -153,8 +152,153 @@ class Fish extends BaseModel {
         return null;
     }
 
+    public static function AllWithSpot($player_id, $spot_id) {
+        $query = DB::connection()->prepare(
+                'SELECT Fish.*,
+                    Trip.tripname,
+                    Trip.tripday,
+                    Trip.start_time,
+                    Trip.end_time,
+                    Trip.temperature,
+                    Trip.water_temperature,
+                    Trip.clouds,
+                    Trip.wind_mps,
+                    Trip.wind_direction,
+                    Species.name_fin,
+                    Species.name_lat,
+                    Spot.spotname,
+                    Lure.lurename,
+                    Lure.luretype,
+                    Lure.color
+                FROM Fish
+                INNER JOIN Trip
+                    ON trip_id = Trip.id
+                INNER JOIN Species
+                    ON species_id = Species.id
+                INNER JOIN Spot
+                    ON spot_id = Spot.id
+                INNER JOIN Lure
+                    ON lure_id = Lure.id
+                WHERE Fish.player_id = :player_id
+                AND Fish.spot_id = :spot_id'
+        );
+        $query->execute(array('player_id' => $player_id, 'spot_id' => $spot_id));
+        $rows = $query->fetchAll();
+        $fishs = array();
+
+        foreach ($rows as $row) {
+            $fishs[] = new Fish(self::selectAttributes($row));
+        }
+
+        return $fishs;
+    }
+
+    public static function AllWithLure($player_id, $lure_id) {
+        $query = DB::connection()->prepare(
+                'SELECT Fish.*,
+                    Trip.tripname,
+                    Trip.tripday,
+                    Trip.start_time,
+                    Trip.end_time,
+                    Trip.temperature,
+                    Trip.water_temperature,
+                    Trip.clouds,
+                    Trip.wind_mps,
+                    Trip.wind_direction,
+                    Species.name_fin,
+                    Species.name_lat,
+                    Spot.spotname,
+                    Lure.lurename,
+                    Lure.luretype,
+                    Lure.color
+                FROM Fish
+                INNER JOIN Trip
+                    ON trip_id = Trip.id
+                INNER JOIN Species
+                    ON species_id = Species.id
+                INNER JOIN Spot
+                    ON spot_id = Spot.id
+                INNER JOIN Lure
+                    ON lure_id = Lure.id
+                WHERE Fish.player_id = :player_id
+                AND Fish.lure_id = :lure_id'
+        );
+        $query->execute(array('player_id' => $player_id, 'lure_id' => $lure_id));
+        $rows = $query->fetchAll();
+        $fishs = array();
+
+        foreach ($rows as $row) {
+            $fishs[] = new Fish(self::selectAttributes($row));
+        }
+
+        return $fishs;
+    }
+
+    public static function AllWithTrip($player_id, $trip_id) {
+        $query = DB::connection()->prepare(
+                'SELECT Fish.*,
+                    Trip.tripname,
+                    Trip.tripday,
+                    Trip.start_time,
+                    Trip.end_time,
+                    Trip.temperature,
+                    Trip.water_temperature,
+                    Trip.clouds,
+                    Trip.wind_mps,
+                    Trip.wind_direction,
+                    Species.name_fin,
+                    Species.name_lat,
+                    Spot.spotname,
+                    Lure.lurename,
+                    Lure.luretype,
+                    Lure.color
+                FROM Fish
+                INNER JOIN Trip
+                    ON trip_id = Trip.id
+                INNER JOIN Species
+                    ON species_id = Species.id
+                INNER JOIN Spot
+                    ON spot_id = Spot.id
+                INNER JOIN Lure
+                    ON lure_id = Lure.id
+                WHERE Fish.player_id = :player_id
+                AND Fish.trip_id = :trip_id'
+        );
+        $query->execute(array('player_id' => $player_id, 'trip_id' => $trip_id));
+        $rows = $query->fetchAll();
+        $fishs = array();
+
+        foreach ($rows as $row) {
+            $fishs[] = new Fish(self::selectAttributes($row));
+        }
+
+        return $fishs;
+    }
+
     public function save() {
-        $query = DB::connection()->prepare('INSERT INTO Fish (player_id, trip_id, species_id, spot_id, lure_id, weight, length_cm, fishing_method, fish_description) VALUES (:player_id, :trip_id, :species_id, :spot_id, :lure_id, :weight, :length_cm, :fishing_method, :fish_description) RETURNING id');
+        $query = DB::connection()->prepare(
+                'INSERT INTO Fish (
+                    player_id,
+                    trip_id,
+                    species_id,
+                    spot_id,
+                    lure_id,
+                    weight,
+                    length_cm,
+                    fishing_method,
+                    fish_description) 
+                VALUES (
+                    :player_id,
+                    :trip_id,
+                    :species_id,
+                    :spot_id,
+                    :lure_id,
+                    :weight,
+                    :length_cm,
+                    :fishing_method,
+                    :fish_description)
+                RETURNING id'
+        );
         $query->execute(array(
             'player_id' => $this->player_id,
             'trip_id' => $this->trip_id,
@@ -172,7 +316,17 @@ class Fish extends BaseModel {
     }
 
     public function update() {
-        $query = DB::connection()->prepare('UPDATE Fish SET species_id = :species_id, spot_id = :spot_id, lure_id = :lure_id, weight = :weight, length_cm = :length_cm, fishing_method = :fishing_method, fish_description = :fish_description WHERE id = :id');
+        $query = DB::connection()->prepare(
+                'UPDATE Fish
+                SET species_id = :species_id,
+                        spot_id = :spot_id,
+                        lure_id = :lure_id,
+                        weight = :weight,
+                        length_cm = :length_cm,
+                        fishing_method = :fishing_method,
+                        fish_description = :fish_description
+                WHERE id = :id'
+        );
         $query->execute(array(
             'species_id' => $this->species_id,
             'spot_id' => $this->spot_id,
@@ -186,8 +340,27 @@ class Fish extends BaseModel {
     }
 
     public function destroy() {
-        $query = DB::connection()->prepare('DELETE FROM Trip WHERE id = :id');
+        $query = DB::connection()->prepare('DELETE FROM Fish WHERE id = :id');
         $query->execute(array('id' => $this->id));
+    }
+
+    /*
+     * VALIDATORS
+     */
+
+    public function validate_trip() {
+        $errors = array();
+
+        if ($this->trip_id == "noselection") {
+            $errors[] = 'Valitse reissu';
+        } else {
+            $trip = Trip::find($this->trip_id);
+            if (!$trip || $this->player_id != $trip->player_id) {
+                $errors[] = 'Virheellinen reissuvalinta';
+            }
+        }
+
+        return $errors;
     }
 
 }

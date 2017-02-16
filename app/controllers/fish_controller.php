@@ -46,9 +46,16 @@ class FishController extends BaseController {
         $errors = $fish->errors();
 
         if (count($errors) > 0) {
+            $id = self::get_user_logged_in()->id;
+            $trips = Trip::all($id);
+            $spots = Spot::all($id);
+            $lures = Lure::all($id);
+            $speciess = Species::all();
 
             View::make('fish/new.html', array('attributes' => $attributes,
-                'errors' => $errors, 'fishingmethods' => Fish::$FISHING_METHODS));
+                'errors' => $errors, 'trips' => $trips,
+                'spots' => $spots, 'lures' => $lures,
+                'speciess' => $speciess, 'fishingmethods' => Fish::$FISHING_METHODS));
         } else {
 
             $fish->save();
@@ -60,10 +67,10 @@ class FishController extends BaseController {
         $fish = Fish::find($id);
         self::check_is_owner($fish);
 
-        $id = self::get_user_logged_in()->id;
-        $trips = Trip::all($id);
-        $spots = Spot::all($id);
-        $lures = Lure::all($id);
+        $userid = self::get_user_logged_in()->id;
+        $trips = Trip::all($userid);
+        $spots = Spot::all($userid);
+        $lures = Lure::all($userid);
         $speciess = Species::all();
 
         View::make('fish/edit.html', array('attributes' => $fish, 'trips' => $trips,

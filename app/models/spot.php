@@ -96,16 +96,16 @@ class Spot extends BaseModel {
         if (self::validate_string_length($this->spotname, 3)) {
             $errors[] = 'Nimen tulee olla vähintään kolme merkkiä pitkä.';
         }
-        if (!self::validate_string_length($this->spotname, 51)) {
-            $errors[] = 'Nimen tulee olla enintään 50 merkkiä pitkä.';
+        if (!self::validate_string_length($this->spotname, 101)) {
+            $errors[] = 'Nimen tulee olla enintään 100 merkkiä pitkä.';
         }
         return $errors;
     }
 
     public function validate_description() {
         $errors = array();
-        if (!self::validate_string_length($this->description, 51)) {
-            $errors[] = 'Kuvauksen tulee olla enintään 50 merkkiä pitkä.';
+        if (!self::validate_string_length($this->description, 1001)) {
+            $errors[] = 'Kuvauksen tulee olla enintään 1000 merkkiä pitkä.';
         }
         return $errors;
     }

@@ -20,7 +20,7 @@
         <label>Kalareissu</label>
         <select name="trip_id" class="form-control">
             {% if (not attributes.tripname) %}        
-            <option value"noselection">Valitse</option>
+            <option value="noselection" selected>Valitse</option>
             {% endif %}
             {% for trip in trips %}            
             <option value ="{{trip.id}}">{{trip.tripday}} {{trip.tripname}}</option>
@@ -32,7 +32,7 @@
         <label>Kalalaji</label>
         <select name="species_id" class="form-control">
             {% if (not attributes.species_id) %}        
-            <option value"noselection">Valitse</option>
+            <option value="noselection" selected>Valitse</option>
             {% endif %}
             {% for species in speciess %}            
             <option value ="{{species.id}}">{{species.name_fin}}</option>
@@ -44,7 +44,7 @@
         <label>Kalapaikka</label>
         <select name="spot_id" class="form-control">
             {% if (not attributes.spot_id) %}        
-            <option value"noselection">Valitse</option>
+            <option value="noselection" selected>Valitse</option>
             {% endif %}
             {% for spot in spots %}            
             <option value ="{{spot.id}}">{{spot.spotname}}</option>
@@ -56,10 +56,10 @@
         <label>Viehe</label>
         <select name="lure_id" class="form-control">
             {% if (not attributes.lure_id) %}        
-            <option value"noselection">Valitse</option>
+            <option value="noselection" selected>Valitse</option>
             {% endif %}
             {% for lure in lures %}            
-            <option value ="{{lure.id}}">{{lure.lurename}}</option>
+            <option value ="{{lure.id}}">{{lure.lurename}}, {{lure.color}}, {{lure.luretype}}</option>
             {% endfor %}
         </select>
     </div>

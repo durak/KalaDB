@@ -38,5 +38,12 @@ Jatkettu tietokohdetta Lure ja aloitettu myös kalapaikat (Spot).
 [Linkki sivustolle](http://itkoskin.users.cs.helsinki.fi/tsoha)
 
 Kirjautuminen:
- - tunnus: aa
- - salasana: bb
+ - tunnus: KumiJ
+ - salasana: ColdAsIce
+
+## Viikko 5
+ - Kirjautuminen ja uloskirjautuminen toteutettu, sekä estetty pääsy kirjautumattomilta toimintoihin.
+ - Kaikki tietokohteet toteutettu CRUD.
+ - Dokumentaatio päivitetty.
+ - TODO: validaatiot osin vaiheessa, näkymiä tarttis hinkata, rekisteröityminen, toiston refaktorointia.
+

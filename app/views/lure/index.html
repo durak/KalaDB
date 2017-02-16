@@ -11,13 +11,12 @@
 <h1>Käyttäjän {{user_logged_in.username}} vieheet</h1>
 <p><a href="{{base_path}}/lure/new" class="btn btn-success">Lisää viehe</a></p>
 
-<table class="table table-striped table-bordered">
+<table id="luresTable" class="tablesorter table table-striped table-bordered">
     <thead>
         <tr>
             <th>Nimi</th>
             <th>Tyyppi</th>
-            <th>Väritys</th>      
-            <th></th>
+            <th>Väritys</th>                  
         </tr>
     </thead>
 
@@ -26,8 +25,7 @@
         <tr>
             <td><a href="{{base_path}}/lure/{{lure.id}}">{{lure.lurename}}</a></td>
             <td>{{lure.luretype}}</td>
-            <td>{{lure.color}}</td>
-            <td><a class="btn btn-default btn-sm" href="{{base_path}}/lure/{{lure.id}}/edit">Muokkaa</a></td>
+            <td>{{lure.color}}</td>            
         </tr>
         {% endfor %}
     </tbody>    

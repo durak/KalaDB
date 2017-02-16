@@ -8,7 +8,8 @@
 </div>
 {% endif %}
 
-<h1>{{trip.tripdate}} {{trip.tripname}}</h1>
+<h3><i>Kalareissu:</i></h3>
+<h1>{{trip.tripday}} {{trip.tripname}}</h1>
 <!-- Painikkeet tähän -->
 <a href="{{base_path}}/trip/{{trip.id}}/edit" class="btn btn-default">Muokkaa</a>
 {{ forms.destroy_button("#{base_path}/trip/#{trip.id}/destroy") }}
@@ -28,29 +29,15 @@
 
 <!-- Kuvaus tulee tähän -->
 {% if trip.description %}
-<h2>Kuvaus</h2>
+<h3><i>Kuvaus:</i></h3>
 <p>{{trip.description}}</p>
 {% endif %}
 
 <!-- Saadut kalat -->
-<h2>Saadut kalat</h2>
-<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Kala</th>
-            <th>Paino</th>
-            <th>Kalapaikka</th>                       
-        </tr>
-    </thead>
+{% if fishs|length > 0 %}
+<h3><i>Saadut kalat</i></h3>
+{% include '/fish/list_fishes.html' %}
+{% endif %}
 
-    <tbody>
-        <!-- Listataan kalat tähän -->
-        <tr>
-            <td><a href="#">Hauki</a></td>
-            <td>2,4 kg</td>    
-            <td>Silakkarysä</td>        
-        </tr>
-    </tbody>
-</table>
 {% endblock %}
 

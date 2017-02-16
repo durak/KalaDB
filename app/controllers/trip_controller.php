@@ -24,8 +24,9 @@ class TripController extends BaseController {
     public static function show($id) {
         $trip = Trip::find($id);
         self::check_is_owner($trip);
-
-        View::make('trip/trip_show.html', array('trip' => $trip));
+        
+        $fishs = Fish::AllWithTrip(self::get_user_logged_in()->id, $id);
+        View::make('trip/trip_show.html', array('trip' => $trip, 'fishs' => $fishs));
     }
 
     public static function create() {

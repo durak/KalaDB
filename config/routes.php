@@ -104,8 +104,8 @@ $routes->get('/species', function() {
     SpeciesController::index();
 });
 
-$routes->get('/species/:id', function() {
-    SpeciesController::show();
+$routes->get('/species/:id', function($id) {
+    SpeciesController::show($id);
 });
 
 /*

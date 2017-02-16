@@ -1,0 +1,44 @@
+<table id="fishTable" class="tablesorter table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Päivämäärä</th>
+            <th>Kalalaji</th>            
+            <th>Paino</th>
+            <th>Pituus</th>
+            <th>Pyyntipaikka</th>
+            <th>Pyyntitapa</th>
+            <th>Viehe</th>            
+            <th>Tyyppi</th>    
+            <th>Väri</th>    
+            <th>Lämpötila</th>
+            <th>Vesi</th>
+            <th>Pilvisyys</th>
+            <th>Tuuli (m/s)</th>
+            <th>Tuulen suunta</th>                            
+        </tr>
+    </thead>
+
+    <tbody>
+        <!--listataan kalat-->
+        {% for fish in fishs %}
+        <tr>
+            <td><a class="btn btn-default btn-sm" href="{{base_path}}/fish/{{fish.id}}">Tarkastele</td>
+            <td>{{fish.tripday}}</td>
+            <td>{{fish.name_fin}}</td>
+            <td>{{fish.weight}}</td>
+            <td>{{fish.length_cm}}</td>
+            <td>{{fish.spotname}}</td>
+            <td>{{fish.fishing_method}}</td>
+            <td>{{fish.lurename}}</td>            
+            <td>{{fish.luretype}}</td>            
+            <td>{{fish.color}}</td>
+            <td>{{fish.temperature}}</td>
+            <td>{{fish.water_temperature}}</td>
+            <td>{{fish.clouds}}</td>
+            <td>{{fish.wind_mps}}</td>
+            <td>{{fish.wind_direction}}</td>            
+        </tr>
+        {% endfor %}
+    </tbody>    
+</table>
