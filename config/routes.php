@@ -100,11 +100,11 @@ $routes->get('/spot/:id', 'check_logged_in', function($id) {
  * Kalalajit
  */
 
-$routes->get('/species', function() {
+$routes->get('/species', 'check_logged_in', function() {
     SpeciesController::index();
 });
 
-$routes->get('/species/:id', function($id) {
+$routes->get('/species/:id', 'check_logged_in', function($id) {
     SpeciesController::show($id);
 });
 

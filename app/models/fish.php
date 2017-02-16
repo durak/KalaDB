@@ -29,7 +29,7 @@ class Fish extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array('validate_trip');
+        $this->validators = array('validate_trip', 'validate_spot', 'validate_lure', 'validate_fishing_method');
     }
 
     /*
@@ -360,6 +360,46 @@ class Fish extends BaseModel {
             }
         }
 
+        return $errors;
+    }
+
+    public function validate_spot() {
+        $errors = array();
+
+        if ($this->spot_id == "noselection") {
+            $errors[] = 'Valitse kalapaikka';
+        } else {
+            $spot = Spot::find($this->spot_id);
+            if (!$spot || $this->player_id != $spot->player_id) {
+                $errors[] = 'Virheellinen paikkavalinta';
+            }
+        }
+
+        return $errors;
+    }
+
+    public function validate_lure() {
+        $errors = array();
+
+        if ($this->lure_id == "noselection") {
+            $errors[] = 'Valitse viehe';
+        } else {
+            $lure = Lure::find($this->lure_id);
+            if (!$lure || $this->player_id != $lure->player_id) {
+                $errors[] = 'Virheellinen viehevalinta';
+            }
+        }
+
+        return $errors;
+    }
+
+    public function validate_fishing_method() {
+        $errors = array();
+        if ($this->fishing_method == "noselection") {
+            $errors[] = 'Valitse kalastustapa';
+        } elseif (!in_array($this->fishing_method, self::$FISHING_METHODS)) {
+            $errors[] = 'Virheellinen kalastustapa valittu.';
+        } 
         return $errors;
     }
 

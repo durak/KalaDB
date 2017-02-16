@@ -6,8 +6,8 @@
 
 {% macro constant_value_selector(selectAttribute, attributePreviousValue, options, choiceText) %}
     <select name="{{selectAttribute}}" class="form-control">
-        {% if (not attributePreviousValue) or (attributePreviousValue == choiceText) %}        
-            <option value"noselection">{{choiceText|default('Valitse')}}</option>
+        {% if (not attributePreviousValue) or (attributePreviousValue == "noselection") %}        
+            <option value="noselection">{{choiceText|default('Valitse')}}</option>
         {% endif %}
         
         {% for element in options %}

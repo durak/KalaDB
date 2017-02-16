@@ -9,6 +9,14 @@ $(document).ready(function ()
         // sort on the first column, order asc 
         sortList: [[0, 0]]
     });
+    $("#spotsTable").tablesorter({
+        // sort on the first column, order asc 
+        sortList: [[0, 0]]
+    });
+    $("#tripsTable").tablesorter({
+        // sort on the first column, order asc 
+        sortList: [[0, 0]]
+    });
     $("#fishTable").tablesorter({
         // sort on the second column, order asc 
         sortList: [[1, 0]],

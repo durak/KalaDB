@@ -45,5 +45,5 @@ Kirjautuminen:
  - Kirjautuminen ja uloskirjautuminen toteutettu, sekä estetty pääsy kirjautumattomilta toimintoihin.
  - Kaikki tietokohteet toteutettu CRUD.
  - Dokumentaatio päivitetty.
- - TODO: validaatiot osin vaiheessa, näkymiä tarttis hinkata, rekisteröityminen, toiston refaktorointia.
+ - TODO: validaatiot keskeneräisiä, näkymiä tarttis hinkata, rekisteröityminen, toiston refaktorointia.
 

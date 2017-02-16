@@ -20,7 +20,7 @@
         <label>Kalareissu</label>
         <select name="trip_id" class="form-control">
             {% if (not attributes.trip_id) %}        
-            <option value"noselection">Valitse</option>
+            <option value="noselection">Valitse</option>
             {% endif %}
 
             {% for trip in trips %}    
@@ -37,7 +37,7 @@
         <label>Kalalaji</label>
         <select name="species_id" class="form-control">
             {% if (not attributes.species_id) %}        
-            <option value"noselection">Valitse</option>
+            <option value="noselection">Valitse</option>
             {% endif %}
 
             {% for species in speciess %}            
@@ -54,7 +54,7 @@
         <label>Kalapaikka</label>
         <select name="spot_id" class="form-control">
             {% if (not attributes.spot_id) %}        
-            <option value"noselection">Valitse</option>
+            <option value="noselection">Valitse</option>
             {% endif %}
             
             {% for spot in spots %}            
@@ -71,7 +71,7 @@
         <label>Viehe</label>
         <select name="lure_id" class="form-control">
             {% if (not attributes.lure_id) %}        
-            <option value"noselection">Valitse</option>
+            <option value="noselection">Valitse</option>
             {% endif %}
             
             {% for lure in lures %}            
