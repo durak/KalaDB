@@ -24,14 +24,15 @@ class HelloWorldController extends BaseController {
 //        Kint::dump($errors);
 //        Kint::dump($eka);
 //        Kint::dump($kaikki);
-        $user = self::get_user_logged_in();
-        
-        $ykkonen = self::match_logged_user(1);
-        $kakkonen = self::match_logged_user(2);
-        
-        Kint::dump($user);
-        Kint::dump($ykkonen);
-        Kint::dump($kakkonen);
+//        
+//        $user = self::get_user_logged_in();
+//        
+//        $ykkonen = self::match_logged_user(1);
+//        $kakkonen = self::match_logged_user(2);
+//        
+//        Kint::dump($user);
+//        Kint::dump($ykkonen);
+//        Kint::dump($kakkonen);
         
 //      echo 'Hello World!';
 //        View::make('helloworld.html');

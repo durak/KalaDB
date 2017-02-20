@@ -28,6 +28,11 @@
 
 </div>
 
+{% if speciess_counts %}
+<h3><i>Saadut kalalajit</i></h3>
+{% include '/species/list_fish_counts_with_species.html' %}
+{% endif %}
+
 
 <!-- Saadut kalat -->
 {% if fishs|length > 0 %}

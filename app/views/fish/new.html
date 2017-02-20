@@ -76,9 +76,9 @@
             
             {% for lure in lures %}            
             {% if lure.id == attributes.lure_id %}
-            <option value ="{{lure.id}}" selected>{{lure.lurename}}</option>
+            <option value ="{{lure.id}}" selected>{{lure.lurename}}, {{lure.luretype}}, {{lure.color}}</option>
             {% else %}
-            <option value ="{{lure.id}}">{{lure.lurename}}</option>
+            <option value ="{{lure.id}}">{{lure.lurename}}, {{lure.luretype}}, {{lure.color}}</option>
             {% endif %}
             {% endfor %}
         </select>
@@ -86,12 +86,12 @@
 
     <div class="form-group">
         <label>Paino (kg)</label>
-        <input type="number" name="weight" class="form-control" value="{{ attributes.weight }}">
+        <input type="number" name="weight" min="0" step="any" class="form-control" value="{{ attributes.weight }}">
     </div>
 
     <div class="form-group">
         <label>Pituus (cm)</label>
-        <input type="number" name="length_cm" class="form-control" value="{{ attributes.length_cm }}">
+        <input type="number" name="length_cm" min="0" class="form-control" value="{{ attributes.length_cm }}">
     </div>
 
     <div class="form-group">

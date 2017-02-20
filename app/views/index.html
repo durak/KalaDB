@@ -13,4 +13,10 @@
     </div>
 {% endif %}
 
+<div class="container-fluid">
+    {% if user_logged_in %}
+    <img src='{{base_path}}/assets/pics/logo_big2.png' class="img-responsive center-block vertical-center">    
+    {% endif %}
+</div>
+
 {% endblock %}

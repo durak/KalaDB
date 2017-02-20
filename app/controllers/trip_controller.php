@@ -25,8 +25,12 @@ class TripController extends BaseController {
         $trip = Trip::find($id);
         self::check_is_owner($trip);
         
-        $fishs = Fish::AllWithTrip(self::get_user_logged_in()->id, $id);
-        View::make('trip/trip_show.html', array('trip' => $trip, 'fishs' => $fishs));
+        $options = array('player_id' => self::get_user_logged_in()->id, 'trip_id' => $id);
+        $fishs = Fish::AllWith($options);
+        
+        $speciess_counts = Species::countOfFishInSpeciesWith($options);
+//        $fishs = Fish::AllWithTrip(self::get_user_logged_in()->id, $id);
+        View::make('trip/trip_show.html', array('trip' => $trip, 'fishs' => $fishs, 'speciess_counts' => $speciess_counts));
     }
 
     public static function create() {
@@ -84,7 +88,7 @@ class TripController extends BaseController {
     public static function destroy($id) {
         $trip = Trip::find($id);
         self::check_is_owner($trip);
-        
+
         $trip->destroy();
         Redirect::to('/trip', array('message' => 'Kalareissu poistettu'));
     }

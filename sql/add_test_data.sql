@@ -17,6 +17,7 @@ INSERT INTO Lure (player_id, lurename, luretype, color) VALUES (1, 'Lotto, 9 g',
 INSERT INTO Lure (player_id, lurename, luretype, color) VALUES (1, 'Motoroil-mato, 8 cm ', 'jigi', 'ruskea');
 INSERT INTO Lure (player_id, lurename, luretype, color) VALUES (1, 'Kalapyrstö, 12 cm ', 'jigi', 'keltainen');
 INSERT INTO Lure (player_id, lurename, luretype, color) VALUES (1, 'Heittoperho, 20 g ', 'perho', 'punainen');
+INSERT INTO Lure (player_id, lurename, luretype, color) VALUES (1, 'Blue Fox Lucius, 26 g ', 'lusikka', 'papukaija');
 
 
 

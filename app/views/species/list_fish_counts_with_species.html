@@ -1,0 +1,19 @@
+<table class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Kalalaji</th>
+            <th>Kpl</th>
+        </tr>
+    </thead>
+
+    <tbody>        
+        {% for species in speciess_counts %}
+        <tr>
+            <td><img src='{{base_path}}/assets/pics/{{species['name_fin']}}.png' class="img-responsive center-block" width="200" height="200"></td>
+            <td>{{ species['name_fin'] }}</td>
+            <td>{{ species['count'] }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>    
+</table>

@@ -8,7 +8,7 @@
 </div>
 {% endif %}
 
-<h3><i>Kala:</i></h3>
+<img src='{{base_path}}/assets/pics/{{fish.name_fin}}.png' class="img-responsive center-block">
 <h1>{{fish.name_fin}}, {{fish.weight}} kg</h1>
 
 <!-- Painikkeet tähän -->
@@ -22,7 +22,7 @@
     <li><strong>Päivämäärä:</strong> {{fish.tripday}}</li>
     <li><strong>Kalapaikka:</strong> {{fish.spotname}}</li>
     <li><strong>Paino:</strong> {{fish.weight}} kg</li>
-    <li><strong>Pituus:</strong> {{fish.length}} cm</li>
+    <li><strong>Pituus:</strong> {{fish.length_cm}} cm</li>
     <li><strong>Viehe:</strong> {{fish.lurename}}, {{fish.luretype}}, {{fish.color}}</li>        
 </ul>
 
