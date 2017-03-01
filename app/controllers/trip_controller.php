@@ -24,12 +24,11 @@ class TripController extends BaseController {
     public static function show($id) {
         $trip = Trip::find($id);
         self::check_is_owner($trip);
-        
+
         $options = array('player_id' => self::get_user_logged_in()->id, 'trip_id' => $id);
         $fishs = Fish::AllWith($options);
-        
+
         $speciess_counts = Species::countOfFishInSpeciesWith($options);
-//        $fishs = Fish::AllWithTrip(self::get_user_logged_in()->id, $id);
         View::make('trip/trip_show.html', array('trip' => $trip, 'fishs' => $fishs, 'speciess_counts' => $speciess_counts));
     }
 
@@ -44,7 +43,7 @@ class TripController extends BaseController {
         $trip = new Trip($attributes);
         $errors = $trip->errors();
 
-        if (count($errors) > 0) {
+        if (count($errors) > 0) {            
 
             View::make('trip/new.html', array('attributes' => $attributes,
                 'errors' => $errors, 'cloudtypes' => Trip::$CLOUDS_TYPES,

@@ -34,7 +34,7 @@ class Trip extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array();
+        $this->validators = array('validate_tripname', 'validate_tripday', 'validate_start_and_end_time', 'validate_temperatures', 'validate_clouds', 'validate_wind_mps', 'validate_wind_direction', 'validate_description');
     }
 
     /*
@@ -133,7 +133,7 @@ class Trip extends BaseModel {
 
     public function validate_tripname() {
         $errors = array();
-        if (self::validate_string_length($this->triname, 3)) {
+        if (self::validate_string_length($this->tripname, 3)) {
             $errors[] = 'Nimen tulee olla vähintään kolme merkkiä pitkä.';
         }
         if (!self::validate_string_length($this->tripname, 51)) {
@@ -143,15 +143,38 @@ class Trip extends BaseModel {
     }
 
     public function validate_tripday() {
-        
+        $errors = array();
+
+        if (self::validate_date($this->tripday)) {
+            $errors[] = 'Valitse päivämäärä tai syötä muodossa VVVV-KK-PP';
+        }
+
+        return $errors;
     }
 
     public function validate_start_and_end_time() {
-        
+        $errors = array();
+
+        if (self::validate_time($this->start_time)) {
+            $errors[] = 'Valitse aloitusaika tai syötä muodossa TT:MM';
+        }
+        if (self::validate_time($this->end_time)) {
+            $errors[] = 'Valitse lopetussaika tai syötä muodossa TT:MM';
+        }
+
+        return $errors;
     }
 
     public function validate_temperatures() {
-        
+        $errors = array();
+        if (!self::validate_in_range($this->temperature, -100, 100)) {
+            $errors[] = 'Syötä lämpötila numeroina väliltä [-100, 100]';
+        }
+        if (!self::validate_in_range($this->water_temperature, 0, 100)) {
+            $errors[] = 'Syötä veden lämpötila numeroina väliltä [0, 100]';
+        }
+
+        return $errors;
     }
 
     public function validate_clouds() {
@@ -163,7 +186,11 @@ class Trip extends BaseModel {
     }
 
     public function validate_wind_mps() {
-        
+        $errors = array();
+        if (!self::validate_in_range($this->wind_mps, 0, 100)) {
+            $errors[] = 'Syötä tuulen nopeus metreinä sekunnissa, numero väliltä [0, 100]';
+        }
+        return $errors;
     }
 
     public function validate_wind_direction() {

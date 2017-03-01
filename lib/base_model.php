@@ -22,7 +22,7 @@ class BaseModel {
 
         foreach ($this->validators as $validator) {
             // Kutsu validointimetodia tässä ja lisää sen palauttamat virheet errors-taulukkoon
-            $validator_errors = $this-> {$validator}();
+            $validator_errors = $this->{$validator}();
             $errors = array_merge($errors, $validator_errors);
         }
 
@@ -31,6 +31,30 @@ class BaseModel {
 
     public static function validate_string_length($string, $length) {
         return (strlen($string) < $length);
+    }
+
+    public static function validate_date($date) {
+        DateTime::createFromFormat('Y-m-d', $date);
+        $date_errors = DateTime::getLastErrors();
+        $error_count = $date_errors['error_count'];
+
+        return $error_count > 0;
+    }
+
+    public static function validate_time($time) {
+        DateTime::createFromFormat('Y-m-d H:i', "2001-01-01 " . $time);
+        $date_errors = DateTime::getLastErrors();
+        $error_count = $date_errors['error_count'];
+
+        return $error_count > 0;
+    }
+
+    public static function validate_in_range($number, $lower, $upper) {
+        if (!is_numeric($number)) {
+            return false;
+        } else {
+            return ($number >= $lower && $number <= $upper);
+        }
     }
 
 }
