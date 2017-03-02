@@ -1,18 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% if message %}
-<div class="alert alert-success">
-    {{message}}
-</div>
-{% endif %}
-
 <h1>Käyttäjän {{user_logged_in.username}} kalapaikat</h1>
 
 <p>
     <a href="{{base_path}}/spot/new" class="btn btn-success">Lisää kalapaikka</a>
 </p>
 
+<!--Taulukko näkyville vain jos on sisältöä-->
+{% if spots|length > 0 %}
 <table id="spotsTable" class="tablesorter table table-striped table-bordered">
     <thead>
         <tr>
@@ -32,4 +28,5 @@
         {% endfor %}
     </tbody>    
 </table>
+{% endif %}
 {% endblock %}

@@ -17,7 +17,9 @@ class BaseController {
         // Toteuta kirjautumisen tarkistus tähän.
         // Jos käyttäjä ei ole kirjautunut sisään, ohjaa hänet toiselle sivulle (esim. kirjautumissivulle).
         if (!self::get_user_logged_in()) {
-            Redirect::to('/login', array('error' => 'Kirjaudu sisään, ole hyvä'));
+            $errors = array();
+            $errors[] = 'Kirjaudu sisään, ole hyvä.';
+            Redirect::to('/login', array('errors' => $errors));
         }
     }
 
@@ -32,7 +34,9 @@ class BaseController {
 
     public static function check_is_owner($object) {
         if (!$object or ! self::match_logged_user($object->player_id)) {
-            Redirect::to('/', array('error' => 'Ei oikeuksia!'));            
+            $errors = array();
+            $errors[] = 'Ei oikeuksia!';
+            Redirect::to('/', array('errors' => $errors));
         }
     }
 

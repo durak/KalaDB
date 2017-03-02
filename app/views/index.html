@@ -1,22 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% if message %}
-    <div class="alert alert-success">
-        {{message}}
-    </div>
-{% endif %}
+<div class="row">
+    <div class="col-sm-12">
 
-{% if error %}
-    <div class="alert alert-danger">
-        {{ error }}
-    </div>
-{% endif %}
+        <div class="col col-sm-4"></div>
 
-<div class="container-fluid">
-    {% if user_logged_in %}
-    <img src='{{base_path}}/assets/pics/logo_big2.png' class="img-responsive center-block vertical-center">    
-    {% endif %}
+        <div class="col col-sm-4">
+
+            <h1 class="text-center">KalaDB</h1>
+            <img src='{{base_path}}/assets/pics/logo_big2.png' class="img-responsive text-center">   
+            <h1 class="text-center"><i>Est. 2017</i></h1>
+            {% if user_logged_in %}
+            
+            {% else %}
+            <h2 class="text-center">Kirjaudu sisään tai rekisteröidy käyttäjäksi!</h2>
+            {% endif %}
+        </div>
+
+        <div class="col col-sm-4"></div>
+
+    </div>
 </div>
+
+
+<!--</div>-->
 
 {% endblock %}

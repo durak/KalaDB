@@ -2,15 +2,11 @@
 {% block content %}
 
 
-{% if message %}
-    <div class="alert alert-success">
-        {{message}}
-    </div>
-{% endif %}
-
 <h1>Käyttäjän {{user_logged_in.username}} vieheet</h1>
 <p><a href="{{base_path}}/lure/new" class="btn btn-success">Lisää viehe</a></p>
 
+<!--Taulukko näkyville vain jos on sisältöä-->
+{% if lures|length > 0 %}
 <table id="luresTable" class="tablesorter table table-striped table-bordered">
     <thead>
         <tr>
@@ -30,4 +26,5 @@
         {% endfor %}
     </tbody>    
 </table>
+{% endif %}
 {% endblock %}

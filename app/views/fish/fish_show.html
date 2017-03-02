@@ -2,11 +2,6 @@
 {% block content %}
 {% import "macros/forms.html" as forms %}
 
-{% if message %}
-<div class="alert alert-success">
-    {{message}}
-</div>
-{% endif %}
 
 <img src='{{base_path}}/assets/pics/{{fish.name_fin}}.png' class="img-responsive center-block">
 <h1>{{fish.name_fin}}, {{fish.weight}} kg</h1>

@@ -1,14 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% if message %}
-<div class="alert alert-success">
-    {{message}}
-</div>
-{% endif %}
 
 <h1>Käyttäjän {{user_logged_in.username}} kalat</h1>
 <p><a href="{{base_path}}/fish/new" class="btn btn-success">Lisää kala</a></p>
 
+<!--Taulukko näkyville vain jos on sisältöä-->
+{% if fishs|length > 0 %}
 {% include '/fish/list_fishes.html' %}
+{% endif %}
 {% endblock %}

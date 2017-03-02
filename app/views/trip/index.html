@@ -1,18 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% if message %}
-<div class="alert alert-success">
-    {{message}}
-</div>
-{% endif %}
-
 <h1>Käyttäjän {{user_logged_in.username}} kalareissut</h1>
 <p><a href="{{base_path}}/trip/new" class="btn btn-success">Uusi reissu</a></p>
 
-
-
-
+<!--Taulukko näkyville vain jos on sisältöä-->
+{% if tripss|length > 0 %}
 <table id="tripsTable" class="tablesorter table table-striped table-bordered">
     <thead>
         <tr>
@@ -40,4 +33,5 @@
         {% endfor %}
     </tbody>    
 </table>
+{% endif %}
 {% endblock %}

@@ -56,5 +56,10 @@ class UserController extends BaseController {
             Redirect::to('/', array('message' => 'Tervetuloa KalaDB:n käyttäjäksi ' . $user->username));
         }
     }
+    
+    public static function show($id) {
+        $user = User::find($id);
+        self::match_logged_user($user->id);
+    }
 
 }
