@@ -42,7 +42,7 @@ class UserController extends BaseController {
     public static function handle_signup() {
         $params = $_POST;
         $attributes = array('username' => $params['username'], 'password' => $params['password'], 'password_confirmation' => $params['password_confirmation']);
-        
+
         $user = new User($attributes);
         $errors = $user->errors();
 
@@ -56,10 +56,39 @@ class UserController extends BaseController {
             Redirect::to('/', array('message' => 'Tervetuloa KalaDB:n käyttäjäksi ' . $user->username));
         }
     }
-    
+
     public static function show($id) {
+        self::check_is_user_themselves($id);
         $user = User::find($id);
-        self::match_logged_user($user->id);
+
+        View::make('user/user_show.html', array('user' => $user));
+    }
+
+    public static function update($id) {
+        self::check_is_user_themselves($id);
+        $params = $_POST;
+        $user = User::find($id);
+
+        $user->username = $params['username'];
+        $errors = $user->validate_username();
+
+        if (count($errors) > 0) {
+
+            View::make('user/user_show.html', array('errors' => $errors, 'user' => $user));
+        } else {
+
+            $user->update();
+            Redirect::to('/', array('message' => 'Käyttäjänimi muokattu, morjensta ' . $user->username . '!'));
+        }
+    }
+
+    public static function destroy($id) {
+        self::check_is_user_themselves($id);
+        $user = User::find($id);
+        $user->destroy();
+        $_SESSION['user'] = null;
+        
+        Redirect::to('/', array('message' => "Hei hei!"));
     }
 
 }

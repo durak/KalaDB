@@ -40,4 +40,12 @@ class BaseController {
         }
     }
 
+    public static function check_is_user_themselves($id) {
+        if (!self::match_logged_user($id)) {
+            $errors = array();
+            $errors[] = 'Ei oikeuksia!';
+            Redirect::to('/', array('errors' => $errors));
+        }
+    }
+
 }

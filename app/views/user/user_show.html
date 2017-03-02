@@ -1,11 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
+{% import "macros/forms.html" as forms %}
 
 <h3><i>Asetukset</i></h3>
 <h1>{{user_logged_in.username}}</h1>
 
 
-<form method="post" action="{{base_path}}/user/{{attributes.id}}/edit ">    
+<form method="post" action="{{base_path}}/user/{{user.id}}/edit ">    
     <div class="form-group">
         <label>Nimi</label>
         <input type="text" name="username" class="form-control" value="{{ user.username }}">
@@ -17,7 +18,7 @@
 </form>
 
 
-{{ forms.destroy_button("#{base_path}/user/#{user.id}/destroy"), "Poista käyttäjä" }}
+{{ forms.destroy_button("#{base_path}/user/#{user.id}/destroy", "Poista käyttäjätunnus") }}
 
 
 {% endblock %}

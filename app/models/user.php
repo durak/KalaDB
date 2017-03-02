@@ -63,6 +63,21 @@ class User extends BaseModel {
         $this->id = $row['id'];
     }
 
+    public function update() {
+        $query = DB::connection()->prepare('UPDATE Player SET playername = :playername WHERE id = :id');
+        $query->execute(array(
+            'playername' => $this->username,
+            'id' => $this->id
+        ));
+    }
+
+    public function destroy() {
+        $query = DB::connection()->prepare('DELETE FROM Player WHERE id = :id');
+        $query->execute(array('id' => $this->id));
+    }
+
+    // Validators
+
     public function validate_username() {
         $errors = array();
 

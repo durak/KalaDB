@@ -20,7 +20,7 @@ class SpeciesController extends BaseController {
     }
     
     public static function show($id) {
-        Redirect::to('/', array('error' => 'not implemented yet!'));  
+        Redirect::to('/', array('message' => 'not implemented yet!'));  
         
     }
 
