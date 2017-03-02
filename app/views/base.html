@@ -37,7 +37,7 @@
                     </button>
                     <!-- Sovelluksen nimi -->
                     <!--                    <a class="navbar-brand" href="{{base_path}}">KalaDB</a>-->
-                     <a class="navbar-brand" href="{{base_path}}"><img src="{{base_path}}/assets/pics/logo2.png" alt="KalaDB"></a>
+                    <a class="navbar-brand" href="{{base_path}}"><img src="{{base_path}}/assets/pics/logo2.png" alt="KalaDB"></a>
                 </div>                
 
                 <div class="collapse navbar-collapse" id="navigation">
@@ -61,12 +61,27 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="{{base_path}}/login">Kirjaudu sisään</a></li>
                     </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{base_path}}/signup">Rekisteröidy</a></li>
+                    </ul>
                     {% endif %}
                 </div>
             </div>
         </nav>
 
         <div id="main-container">
+
+            {% if errors %}
+            <div class="alert alert-danger">
+                <ul>
+                    {% for error in errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+
             <!-- Dynaaminen sisältö tulee tähän -->
             {% block content %}{% endblock %}
         </div>

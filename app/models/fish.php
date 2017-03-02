@@ -214,8 +214,6 @@ class Fish extends BaseModel {
         return null;
     }
 
-
-
     public function save() {
         $query = DB::connection()->prepare(
                 'INSERT INTO Fish (
@@ -341,6 +339,35 @@ class Fish extends BaseModel {
         } elseif (!in_array($this->fishing_method, self::$FISHING_METHODS)) {
             $errors[] = 'Virheellinen kalastustapa valittu.';
         }
+
+        return $errors;
+    }
+
+    public function validate_weight() {
+        $errors = array();
+        if (!self::validate_in_range($this->weight, 0, 100)) {
+            $errors[] = 'Syötä kalan paino kilogrammoina, desimaaliluku väliltä [0, 100]';
+        }
+
+        return $errors;
+    }
+
+    public function validate_length() {
+        $errors = array();
+        if (!self::validate_in_range($this->length_cm, 0, 1000)) {
+            $errors[] = 'Syötä kalan pituus senttimetreinä, kokonaisluku väliltä [0, 1000]';
+        }
+
+        return $errors;
+    }
+
+    public function validate_description() {
+        $errors = array();
+
+        if (!self::validate_string_length($this->fish_description, 501)) {
+            $errors[] = 'Kuvauksen tulee olla enintään 500 merkkiä pitkä.';
+        }
+
         return $errors;
     }
 

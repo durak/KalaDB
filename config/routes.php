@@ -173,7 +173,7 @@ $routes->get('/fish/:id', 'check_logged_in', function($id) {
 
 
 /*
- * LOGIN
+ * LOGIN & SIGNUP
  */
 $routes->get('/login', function() {
     UserController::login();
@@ -185,4 +185,12 @@ $routes->post('/login', function() {
 
 $routes->post('/logout', function() {
     UserController::logout();
+});
+
+$routes->get('/signup', function() {
+    UserController::signup();
+});
+
+$routes->post('/signup', function() {
+    UserController::handle_signup();
 });
