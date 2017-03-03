@@ -15,7 +15,7 @@ class FishController extends BaseController {
 
     public static function index() {
         $options = array('player_id' => self::get_user_logged_in()->id);
-        $fishs = Fish::AllWith($options); 
+        $fishs = Fish::AllWith($options);
 
         View::make('fish/index.html', array('fishs' => $fishs));
     }
@@ -64,7 +64,8 @@ class FishController extends BaseController {
     }
 
     public static function edit($id) {
-        $fish = Fish::find($id);
+        $options = array('player_id' => self::get_user_logged_in()->id, 'fish_id' => $id);
+        $fish = Fish::find($options);
         self::check_is_owner($fish);
 
         $userid = self::get_user_logged_in()->id;
@@ -79,7 +80,8 @@ class FishController extends BaseController {
     }
 
     public static function update($id) {
-        self::check_is_owner(Fish::find($id));
+        $options = array('player_id' => self::get_user_logged_in()->id, 'fish_id' => $id);
+        self::check_is_owner(Fish::find($options));
 
         $attributes = self::postAttributes();
         $attributes['id'] = $id;
@@ -105,10 +107,11 @@ class FishController extends BaseController {
     }
 
     public static function destroy($id) {
-        $fish = Fish::find($id);
+        $options = array('player_id' => self::get_user_logged_in()->id, 'fish_id' => $id);
+        $fish = Fish::find($options);
         self::check_is_owner($fish);
 
-        $fish->destroy();       
+        $fish->destroy();
         Redirect::to('/fish', array('message' => 'Kala poistettu'));
     }
 

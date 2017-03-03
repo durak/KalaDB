@@ -36,16 +36,7 @@ class Lure extends BaseModel {
      * CRUD
      */
 
-    private static function selectAttributes($row) {
 
-        return array(
-            'id' => $row['id'],
-            'player_id' => $row['player_id'],
-            'lurename' => $row['lurename'],
-            'luretype' => $row['luretype'],
-            'color' => $row['color']
-        );
-    }
 
     public static function all($id) {
         $query = DB::connection()->prepare('SELECT * FROM Lure WHERE player_id = :id');
@@ -54,7 +45,7 @@ class Lure extends BaseModel {
         $lures = array();
 
         foreach ($rows as $row) {
-            $lures[] = new Lure(self::selectAttributes($row));
+            $lures[] = new Lure($row);
         }
 
         return $lures;
@@ -66,7 +57,7 @@ class Lure extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
-            $lure = new Lure(self::selectAttributes($row));
+            $lure = new Lure($row);
 
             return $lure;
         }
