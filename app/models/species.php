@@ -83,7 +83,7 @@ class Species extends BaseModel {
             $speciess_counts[] = array(
                 'name_fin' => $row['name_fin'],
                 'count' => $row['numberoffish'],
-                'id' => $row['id']                    
+                'id' => $row['id']
             );
         }
 
@@ -96,18 +96,23 @@ class Species extends BaseModel {
     }
 
     /*
-     * Return species with highest count of catched fishes 
+     * Return species name with highest count of catched fishes 
      *  - with a certain spot
      *  - with a certain lure
      *  - in a certain trip
      */
 
     public static function topSpeciesWith($options) {
-        $speciess_counts = self::countOfFishInSpeciesWith($options);        
-        $values = array_values($speciess_counts);
-        $top = $values[0];
+        $speciess_counts = self::countOfFishInSpeciesWith($options);
+
+        if ($speciess_counts) {
+            $values = array_values($speciess_counts);
+            $top = $values[0];
+//            return self::find($top['id']);
+            return $top['name_fin'];
+        }
         
-        return self::find($top['id']);
+        return "-";
     }
 
     private static function count_cmp($a, $b) {

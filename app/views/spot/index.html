@@ -14,7 +14,7 @@
         <tr>
             <th>Nimi</th>
             <th>Kuvaus</th>           
-            <th>Kaloja</th>
+            <th>Yleisin kalalaji</th>
         </tr>
     </thead>
 
@@ -23,7 +23,7 @@
         <tr>
             <td><a href="{{base_path}}/spot/{{spot.id}}">{{spot.spotname}}</a></td>
             <td>{{spot.description}}</td>    
-            <td>kalojen count</td>
+            <td>{{ attribute(top_speciess, spot.id)['top'] }}</td>
         </tr>
         {% endfor %}
     </tbody>    

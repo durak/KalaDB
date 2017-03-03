@@ -18,17 +18,25 @@ class SpotController extends BaseController {
         $id = $user->id;
         $spots = Spot::all($id);
 
-        View::make('spot/index.html', array('spots' => $spots));
+        $top_speciess = array();
+        foreach ($spots as $spot) {
+            $options = array('player_id' => self::get_user_logged_in()->id, 'spot_id' => $spot->id);
+            $top = Species::topSpeciesWith($options);
+            $top_speciess[] = array("{$spot->id}" => $top);
+        }
+
+        Kint::dump($top_speciess);
+        View::make('spot/index.html', array('spots' => $spots, 'top_speciess' => $top_speciess));
     }
 
     public static function show($id) {
         $spot = Spot::find($id);
         self::check_is_owner($spot);
-        
+
         $options = array('player_id' => self::get_user_logged_in()->id, 'spot_id' => $id);
-        $fishs = Fish::AllWith($options);        
+        $fishs = Fish::AllWith($options);
         $speciess_counts = Species::countOfFishInSpeciesWith($options);
-        
+
         View::make('spot/spot_show.html', array('spot' => $spot, 'fishs' => $fishs, 'speciess_counts' => $speciess_counts));
     }
 
@@ -60,11 +68,11 @@ class SpotController extends BaseController {
         View::make('spot/edit.html', array('attributes' => $spot));
     }
 
-    public static function update($id) {        
+    public static function update($id) {
         self::check_is_owner(Spot::find($id));
 
         $attributes = self::postAttributes();
-        $attributes['id'] = $id;        
+        $attributes['id'] = $id;
         $spot = new Spot($attributes);
         $errors = $spot->errors();
 
@@ -73,7 +81,7 @@ class SpotController extends BaseController {
             View::make('spot/edit.html', array('attributes' => $attributes,
                 'errors' => $errors));
         } else {
-            
+
             $spot->update();
             Redirect::to('/spot/' . $spot->id, array('message' => 'Kalapaikka muokattu.'));
         }
