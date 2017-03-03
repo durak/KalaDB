@@ -26,10 +26,9 @@ class SpotController extends BaseController {
         self::check_is_owner($spot);
         
         $options = array('player_id' => self::get_user_logged_in()->id, 'spot_id' => $id);
-        $fishs = Fish::AllWith($options);
-        
+        $fishs = Fish::AllWith($options);        
         $speciess_counts = Species::countOfFishInSpeciesWith($options);
-//        $fishs = Fish::AllWithSpot(self::get_user_logged_in()->id, $id);
+        
         View::make('spot/spot_show.html', array('spot' => $spot, 'fishs' => $fishs, 'speciess_counts' => $speciess_counts));
     }
 

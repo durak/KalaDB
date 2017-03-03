@@ -27,8 +27,8 @@ class TripController extends BaseController {
 
         $options = array('player_id' => self::get_user_logged_in()->id, 'trip_id' => $id);
         $fishs = Fish::AllWith($options);
-
         $speciess_counts = Species::countOfFishInSpeciesWith($options);
+        
         View::make('trip/trip_show.html', array('trip' => $trip, 'fishs' => $fishs, 'speciess_counts' => $speciess_counts));
     }
 
@@ -58,7 +58,6 @@ class TripController extends BaseController {
     public static function edit($id) {
         $trip = Trip::find($id);
         self::check_is_owner($trip);
-
 
         View::make('trip/edit.html', array('attributes' => $trip,
             'cloudtypes' => Trip::$CLOUDS_TYPES, 'winddirections' => Trip::$WIND_DIRECTIONS));

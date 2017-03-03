@@ -22,6 +22,7 @@ class Fish extends BaseModel {
         'perho'
     );
     //
+
     private static $FISHQUERY = 'SELECT Fish.*,
                     Trip.tripname,
                     Trip.tripday,
@@ -49,6 +50,30 @@ class Fish extends BaseModel {
                     ON lure_id = Lure.id
                 WHERE Fish.player_id = :player_id';
     //
+
+    private static $SAVEQUERY = 'INSERT INTO Fish (
+                    player_id,
+                    trip_id,
+                    species_id,
+                    spot_id,
+                    lure_id,
+                    weight,
+                    length_cm,
+                    fishing_method,
+                    fish_description) 
+                VALUES (
+                    :player_id,
+                    :trip_id,
+                    :species_id,
+                    :spot_id,
+                    :lure_id,
+                    :weight,
+                    :length_cm,
+                    :fishing_method,
+                    :fish_description)
+                RETURNING id';
+    //
+
     public $id, $player_id, $weight, $length_cm, $fishing_method, $fish_description;
     public $trip_id, $tripday, $tripname, $start_time, $end_time, $temperature, $water_temperature, $clouds, $wind_mps, $wind_direction;
     public $species_id, $name_fin, $name_lat;
@@ -57,47 +82,13 @@ class Fish extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array('validate_trip', 'validate_spot', 'validate_lure', 'validate_fishing_method');
+        $this->validators = array('validate_trip', 'validate_spot', 'validate_lure', 'validate_fishing_method', 'validate_weight', 'validate_length');
     }
 
     /*
      * CRUD
      */
 
-    private static function selectAttributes($row) {
-
-        return array(
-            // table Fish
-            'id' => $row['id'],
-            'player_id' => $row['player_id'],
-            'weight' => $row['weight'],
-            'length_cm' => $row['length_cm'],
-            'fishing_method' => $row['fishing_method'],
-            'fish_description' => $row['fish_description'],
-            // table Trip
-            'trip_id' => $row['trip_id'],
-            'tripday' => $row['tripday'],
-            'start_time' => $row['start_time'],
-            'end_time' => $row['end_time'],
-            'temperature' => $row['temperature'],
-            'water_temperature' => $row['water_temperature'],
-            'clouds' => $row['clouds'],
-            'wind_mps' => $row['wind_mps'],
-            'wind_direction' => $row['wind_direction'],
-            // table Species
-            'species_id' => $row['species_id'],
-            'name_fin' => $row['name_fin'],
-            'name_lat' => $row['name_lat'],
-            // table Spot
-            'spot_id' => $row['spot_id'],
-            'spotname' => $row['spotname'],
-            // table Lure
-            'lure_id' => $row['lure_id'],
-            'lurename' => $row['lurename'],
-            'luretype' => $row['luretype'],
-            'color' => $row['color']
-        );
-    }
 
     /*
      * Return all fishes with a player ID and optionally only with a certain:
@@ -127,86 +118,22 @@ class Fish extends BaseModel {
         $fishs = array();
 
         foreach ($rows as $row) {
-            $fishs[] = new Fish(self::selectAttributes($row));
+            $fishs[] = new Fish($row);
         }
 
         return $fishs;
     }
 
-    public static function all($id) {
-        $query = DB::connection()->prepare(
-                'SELECT Fish.*,
-                    Trip.tripname,
-                    Trip.tripday,
-                    Trip.start_time,
-                    Trip.end_time,
-                    Trip.temperature,
-                    Trip.water_temperature,
-                    Trip.clouds,
-                    Trip.wind_mps,
-                    Trip.wind_direction,
-                    Species.name_fin,
-                    Species.name_lat,
-                    Spot.spotname,
-                    Lure.lurename,
-                    Lure.luretype,
-                    Lure.color
-                FROM Fish
-                INNER JOIN Trip
-                    ON trip_id = Trip.id
-                INNER JOIN Species
-                    ON species_id = Species.id
-                INNER JOIN Spot
-                    ON spot_id = Spot.id
-                INNER JOIN Lure
-                    ON lure_id = Lure.id
-                WHERE Fish.player_id = :id'
-        );
-        $query->execute(array('id' => $id));
-        $rows = $query->fetchAll();
-        $fishs = array();
+    public static function find($options) {
+        $query_string = self::$FISHQUERY;
+        $query_string .= ' AND Fish.id = :fish_id LIMIT 1';
 
-        foreach ($rows as $row) {
-            $fishs[] = new Fish(self::selectAttributes($row));
-        }
-
-        return $fishs;
-    }
-
-    public static function find($id) {
-        $query = DB::connection()->prepare(
-                'SELECT Fish.*,
-                    Trip.tripname,
-                    Trip.tripday,
-                    Trip.start_time,
-                    Trip.end_time,
-                    Trip.temperature,
-                    Trip.water_temperature,
-                    Trip.clouds,
-                    Trip.wind_mps,
-                    Trip.wind_direction,
-                    Species.name_fin,
-                    Species.name_lat,
-                    Spot.spotname,
-                    Lure.lurename,
-                    Lure.luretype,
-                    Lure.color
-                FROM Fish
-                INNER JOIN Trip
-                    ON trip_id = Trip.id
-                INNER JOIN Species
-                    ON species_id = Species.id
-                INNER JOIN Spot
-                    ON spot_id = Spot.id
-                INNER JOIN Lure
-                    ON lure_id = Lure.id
-                WHERE Fish.id = :id LIMIT 1'
-        );
-        $query->execute(array('id' => $id));
+        $query = DB::connection()->prepare($query_string);
+        $query->execute($options);
         $row = $query->fetch();
 
         if ($row) {
-            $fish = new Fish(self::selectAttributes($row));
+            $fish = new Fish($row);
 
             return $fish;
         }
@@ -215,29 +142,30 @@ class Fish extends BaseModel {
     }
 
     public function save() {
-        $query = DB::connection()->prepare(
-                'INSERT INTO Fish (
-                    player_id,
-                    trip_id,
-                    species_id,
-                    spot_id,
-                    lure_id,
-                    weight,
-                    length_cm,
-                    fishing_method,
-                    fish_description) 
-                VALUES (
-                    :player_id,
-                    :trip_id,
-                    :species_id,
-                    :spot_id,
-                    :lure_id,
-                    :weight,
-                    :length_cm,
-                    :fishing_method,
-                    :fish_description)
-                RETURNING id'
-        );
+//        $query = DB::connection()->prepare(
+//                'INSERT INTO Fish (
+//                    player_id,
+//                    trip_id,
+//                    species_id,
+//                    spot_id,
+//                    lure_id,
+//                    weight,
+//                    length_cm,
+//                    fishing_method,
+//                    fish_description) 
+//                VALUES (
+//                    :player_id,
+//                    :trip_id,
+//                    :species_id,
+//                    :spot_id,
+//                    :lure_id,
+//                    :weight,
+//                    :length_cm,
+//                    :fishing_method,
+//                    :fish_description)
+//                RETURNING id'
+//        );
+        $query = DB::connection()->prepare(self::$SAVEQUERY);
         $query->execute(array(
             'player_id' => $this->player_id,
             'trip_id' => $this->trip_id,

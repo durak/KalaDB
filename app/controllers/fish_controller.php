@@ -14,15 +14,15 @@
 class FishController extends BaseController {
 
     public static function index() {
-        $user = self::get_user_logged_in();
-        $id = $user->id;
-        $fishs = Fish::all($id);
+        $options = array('player_id' => self::get_user_logged_in()->id);
+        $fishs = Fish::AllWith($options); 
 
         View::make('fish/index.html', array('fishs' => $fishs));
     }
 
     public static function show($id) {
-        $fish = Fish::find($id);
+        $options = array('player_id' => self::get_user_logged_in()->id, 'fish_id' => $id);
+        $fish = Fish::find($options);
         self::check_is_owner($fish);
 
         View::make('fish/fish_show.html', array('fish' => $fish));
@@ -108,7 +108,7 @@ class FishController extends BaseController {
         $fish = Fish::find($id);
         self::check_is_owner($fish);
 
-        $fish->destroy();
+        $fish->destroy();       
         Redirect::to('/fish', array('message' => 'Kala poistettu'));
     }
 

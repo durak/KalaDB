@@ -20,11 +20,9 @@ class LureController extends BaseController {
         self::check_is_owner($lure);
         
         $options = array('player_id' => self::get_user_logged_in()->id, 'lure_id' => $id);
-        $fishs = Fish::AllWith($options);
-        
-        $speciess_counts = Species::countOfFishInSpeciesWith($options);
-        
-//        $fishs = Fish::AllWithLure(self::get_user_logged_in()->id, $id);
+        $fishs = Fish::AllWith($options);        
+        $speciess_counts = Species::countOfFishInSpeciesWith($options);        
+
         View::make('lure/lure_show.html', array('lure' => $lure, 'fishs' => $fishs, 'speciess_counts' => $speciess_counts));
     }
 
