@@ -36,8 +36,6 @@ class Lure extends BaseModel {
      * CRUD
      */
 
-
-
     public static function all($id) {
         $query = DB::connection()->prepare('SELECT * FROM Lure WHERE player_id = :id');
         $query->execute(array('id' => $id));

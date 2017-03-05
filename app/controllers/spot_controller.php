@@ -22,10 +22,10 @@ class SpotController extends BaseController {
         foreach ($spots as $spot) {
             $options = array('player_id' => self::get_user_logged_in()->id, 'spot_id' => $spot->id);
             $top = Species::topSpeciesWith($options);
-            $top_speciess[] = array("{$spot->id}" => $top);
+//            $top_speciess[] = array("{$spot->id}" => $top);
+            $top_speciess[$spot->id] = $top;
         }
-
-        Kint::dump($top_speciess);
+        
         View::make('spot/index.html', array('spots' => $spots, 'top_speciess' => $top_speciess));
     }
 

@@ -108,11 +108,11 @@ class Species extends BaseModel {
         if ($speciess_counts) {
             $values = array_values($speciess_counts);
             $top = $values[0];
-//            return self::find($top['id']);
-            return $top['name_fin'];
+            return self::find($top['id']);
+//            return $top['name_fin'];
         }
         
-        return "-";
+//        return "-";
     }
 
     private static function count_cmp($a, $b) {

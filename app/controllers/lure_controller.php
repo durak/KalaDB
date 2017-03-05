@@ -12,16 +12,23 @@ class LureController extends BaseController {
         $id = $user->id;
         $lures = Lure::all($id);
 
-        View::make('lure/index.html', array('lures' => $lures));
+        $top_speciess = array();
+        foreach ($lures as $lure) {
+            $options = array('player_id' => self::get_user_logged_in()->id, 'lure_id' => $lure->id);
+            $top = Species::topSpeciesWith($options);
+            $top_speciess[$lure->id] = $top;
+        }
+
+        View::make('lure/index.html', array('lures' => $lures, 'top_speciess' => $top_speciess));
     }
 
     public static function show($id) {
         $lure = Lure::find($id);
         self::check_is_owner($lure);
-        
+
         $options = array('player_id' => self::get_user_logged_in()->id, 'lure_id' => $id);
-        $fishs = Fish::AllWith($options);        
-        $speciess_counts = Species::countOfFishInSpeciesWith($options);        
+        $fishs = Fish::AllWith($options);
+        $speciess_counts = Species::countOfFishInSpeciesWith($options);
 
         View::make('lure/lure_show.html', array('lure' => $lure, 'fishs' => $fishs, 'speciess_counts' => $speciess_counts));
     }

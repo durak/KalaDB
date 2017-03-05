@@ -24,16 +24,6 @@ class Spot extends BaseModel {
      * CRUD
      */
 
-    private static function selectAttributes($row) {
-
-        return array(
-            'id' => $row['id'],
-            'player_id' => $row['player_id'],
-            'spotname' => $row['spotname'],
-            'description' => $row['description']
-        );
-    }
-
     public static function all($id) {
         $query = DB::connection()->prepare('SELECT * FROM Spot WHERE player_id = :id');
         $query->execute(array('id' => $id));
@@ -41,7 +31,7 @@ class Spot extends BaseModel {
         $spots = array();
 
         foreach ($rows as $row) {
-            $spots[] = new Spot(self::selectAttributes($row));
+            $spots[] = new Spot($row);
         }
         
         return $spots;
@@ -53,7 +43,7 @@ class Spot extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
-            $spot = new Spot(self::selectAttributes($row));
+            $spot = new Spot($row);
 
             return $spot;
         }

@@ -9,24 +9,26 @@
 
 <!--Taulukko näkyville vain jos on sisältöä-->
 {% if spots|length > 0 %}
-<table id="spotsTable" class="tablesorter table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Nimi</th>
-            <th>Kuvaus</th>           
-            <th>Yleisin kalalaji</th>
-        </tr>
-    </thead>
 
-    <tbody>        
-        {% for spot in spots %}
-        <tr>
-            <td><a href="{{base_path}}/spot/{{spot.id}}">{{spot.spotname}}</a></td>
-            <td>{{spot.description}}</td>    
-            <td>{{ attribute(top_speciess, spot.id)['top'] }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>    
-</table>
+    <table id="spotsTable" class="tablesorter table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Nimi</th>
+                <th>Kuvaus</th>           
+                <th>Yleisin kalalaji</th>
+            </tr>
+        </thead>
+
+        <tbody>        
+            {% for spot in spots %}
+            <tr>
+                <td><a href="{{base_path}}/spot/{{spot.id}}">{{spot.spotname}}</a></td>
+                <td>{{spot.description}}</td>    
+                <td>{{ attribute(top_speciess, spot.id).name_fin }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>    
+    </table>
+
 {% endif %}
 {% endblock %}

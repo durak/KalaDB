@@ -43,7 +43,7 @@ class TripController extends BaseController {
         $trip = new Trip($attributes);
         $errors = $trip->errors();
 
-        if (count($errors) > 0) {            
+        if (count($errors) > 0) { 
 
             View::make('trip/new.html', array('attributes' => $attributes,
                 'errors' => $errors, 'cloudtypes' => Trip::$CLOUDS_TYPES,
@@ -71,7 +71,7 @@ class TripController extends BaseController {
         $trip = new Trip($attributes);
         $errors = $trip->errors();
 
-        if (count($errors) > 0) {
+        if (count($errors) > 0) {           
 
             View::make('trip/edit.html', array('attributes' => $attributes,
                 'errors' => $errors, 'cloudtypes' => Trip::$CLOUDS_TYPES,

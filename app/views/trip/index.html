@@ -6,32 +6,36 @@
 
 <!--Taulukko näkyville vain jos on sisältöä-->
 {% if trips|length > 0 %}
-<table id="tripsTable" class="tablesorter table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Kalareissu</th>            
-            <th>Kesto</th>            
-            <th>Lämpötila</th>
-            <th>Vesi</th>
-            <th>Pilvisyys</th>
-            <th>Tuuli (m/s)</th>
-            <th>Tuulen suunta</th>                        
-        </tr>
-    </thead>
+<div class="table-responsive">
+    <table id="tripsTable" class="tablesorter table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Päivämäärä</th>
+                <th>Kalareissu</th>            
+                <th>Kesto</th>            
+                <th>Lämpötila</th>
+                <th>Vesi</th>
+                <th>Pilvisyys</th>
+                <th>Tuuli (m/s)</th>
+                <th>Tuulen suunta</th>                        
+            </tr>
+        </thead>
 
-    <tbody>
-        {% for trip in trips %}
-        <tr>
-            <td><a href="{{base_path}}/trip/{{trip.id}}">{{trip.tripday}} {{trip.tripname}}</a></td>
-            <td>{{trip.start_time}} - {{trip.end_time}}</td>            
-            <td>{{trip.temperature}}</td>
-            <td>{{trip.water_temperature}}</td>
-            <td>{{trip.clouds}}</td>
-            <td>{{trip.wind_mps}}</td>
-            <td>{{trip.wind_direction}}</td>            
-        </tr>
-        {% endfor %}
-    </tbody>    
-</table>
+        <tbody>
+            {% for trip in trips %}
+            <tr>
+                <td>{{trip.tripday}}</td>
+                <td><a href="{{base_path}}/trip/{{trip.id}}">{{trip.tripname}}</a></td>
+                <td>{{trip.start_time}} - {{trip.end_time}}</td>            
+                <td>{{trip.temperature}}</td>
+                <td>{{trip.water_temperature}}</td>
+                <td>{{trip.clouds}}</td>
+                <td>{{trip.wind_mps}}</td>
+                <td>{{trip.wind_direction}}</td>            
+            </tr>
+            {% endfor %}
+        </tbody>    
+    </table>
+</div>
 {% endif %}
 {% endblock %}

@@ -14,29 +14,9 @@ $routes->get('/hiekkalaatikko', function() {
     HelloWorldController::sandbox();
 });
 
-$routes->get('/kalareissu', function() {
-    HelloWorldController::trip_list();
-});
-
-$routes->get('/kalareissu/1', function() {
-    HelloWorldController::trip_show();
-});
-
-$routes->get('/kala', function() {
-    HelloWorldController::fish_list();
-});
-
-$routes->get('/kala/1', function() {
-    HelloWorldController::fish_show();
-});
-
-$routes->get('/kalapaikka', function() {
-    HelloWorldController::spot_list();
-});
-
-$routes->get('/kalapaikka/1', function() {
-    HelloWorldController::spot_show();
-});
+/*
+ * Lures
+ */
 
 $routes->get('/lure', 'check_logged_in', function() {
     LureController::index();
@@ -66,7 +46,7 @@ $routes->get('/lure/:id', 'check_logged_in', function($id) {
 });
 
 /*
- * Kalapaikat
+ * Spots
  */
 
 $routes->get('/spot', 'check_logged_in', function() {
@@ -97,7 +77,7 @@ $routes->get('/spot/:id', 'check_logged_in', function($id) {
 });
 
 /*
- * Kalalajit
+ * Species
  */
 
 $routes->get('/species', 'check_logged_in', function() {
@@ -109,7 +89,7 @@ $routes->get('/species/:id', 'check_logged_in', function($id) {
 });
 
 /*
- * Kalareissut
+ * Trips
  */
 
 $routes->get('/trip', 'check_logged_in', function() {
@@ -140,7 +120,7 @@ $routes->get('/trip/:id', 'check_logged_in', function($id) {
 });
 
 /*
- * Kalat
+ * Fishes
  */
 
 $routes->get('/fish', 'check_logged_in', function() {

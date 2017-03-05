@@ -106,6 +106,7 @@ class Fish extends BaseModel {
      *  - spot
      *  - lure
      *  - trip
+     *  - species
      */
 
     public static function AllWith($options) {
@@ -121,6 +122,9 @@ class Fish extends BaseModel {
         } elseif (isset($options['trip_id'])) {
             $query_string .= ' AND Fish.trip_id = :trip_id';
             $query_options['trip_id'] = $options['trip_id'];
+        } elseif (isset($options['species_id'])) {
+            $query_string .= ' AND Fish.species_id = :species_id';
+            $query_options['species_id'] = $options['species_id'];
         }
 
         $query = DB::connection()->prepare($query_string);

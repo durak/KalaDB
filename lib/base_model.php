@@ -42,7 +42,11 @@ class BaseModel {
     }
 
     public static function validate_time($time) {
-        DateTime::createFromFormat('Y-m-d H:i', "2001-01-01 " . $time);
+        $format = 'Y-m-d H:i';
+        if (strlen($time) > 5) {
+            $format = 'Y-m-d H:i:s';
+        }
+        DateTime::createFromFormat("{$format}", "2001-01-01 " . $time);
         $date_errors = DateTime::getLastErrors();
         $error_count = $date_errors['error_count'];
 

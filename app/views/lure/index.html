@@ -7,24 +7,28 @@
 
 <!--Taulukko näkyville vain jos on sisältöä-->
 {% if lures|length > 0 %}
-<table id="luresTable" class="tablesorter table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>Nimi</th>
-            <th>Tyyppi</th>
-            <th>Väritys</th>                  
-        </tr>
-    </thead>
 
-    <tbody>        
-        {% for lure in lures %}
-        <tr>
-            <td><a href="{{base_path}}/lure/{{lure.id}}">{{lure.lurename}}</a></td>
-            <td>{{lure.luretype}}</td>
-            <td>{{lure.color}}</td>            
-        </tr>
-        {% endfor %}
-    </tbody>    
-</table>
+    <table id="luresTable" class="tablesorter table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Nimi</th>
+                <th>Tyyppi</th>
+                <th>Väritys</th>   
+                <th>Yleisin kalalaji</th>
+            </tr>
+        </thead>
+
+        <tbody>        
+            {% for lure in lures %}
+            <tr>
+                <td><a href="{{base_path}}/lure/{{lure.id}}">{{lure.lurename}}</a></td>
+                <td>{{lure.luretype}}</td>
+                <td>{{lure.color}}</td>  
+                <td>{{ attribute(top_speciess, lure.id).name_fin }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>    
+    </table>
+
 {% endif %}
 {% endblock %}

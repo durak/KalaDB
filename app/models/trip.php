@@ -41,24 +41,6 @@ class Trip extends BaseModel {
      * CRUD
      */
 
-    private static function selectAttributes($row) {
-
-        return array(
-            'id' => $row['id'],
-            'player_id' => $row['player_id'],
-            'tripname' => $row['tripname'],
-            'tripday' => $row['tripday'],
-            'start_time' => $row['start_time'],
-            'end_time' => $row['end_time'],
-            'temperature' => $row['temperature'],
-            'water_temperature' => $row['water_temperature'],
-            'clouds' => $row['clouds'],
-            'wind_mps' => $row['wind_mps'],
-            'wind_direction' => $row['wind_direction'],
-            'description' => $row['description']
-        );
-    }
-
     public static function all($id) {
         $query = DB::connection()->prepare('SELECT * FROM Trip WHERE player_id = :id');
         $query->execute(array('id' => $id));
@@ -66,7 +48,7 @@ class Trip extends BaseModel {
         $trips = array();
 
         foreach ($rows as $row) {
-            $trips[] = new Trip(self::selectAttributes($row));
+            $trips[] = new Trip($row);
         }
 
         return $trips;
@@ -78,7 +60,7 @@ class Trip extends BaseModel {
         $row = $query->fetch();
 
         if ($row) {
-            $trip = new Trip(self::selectAttributes($row));
+            $trip = new Trip($row);
 
             return $trip;
         }

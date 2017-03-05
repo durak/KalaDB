@@ -18,10 +18,15 @@ class SpeciesController extends BaseController {
         $speciess = Species::all();
         View::make('species/index.html', array('speciess' => $speciess));
     }
-    
+
     public static function show($id) {
-        Redirect::to('/', array('message' => 'not implemented yet!'));  
-        
+        $species = Species::find($id);        
+
+        $options = array('player_id' => self::get_user_logged_in()->id, 'species_id' => $id);
+        $fishs = Fish::AllWith($options);        
+
+        View::make('species/species_show.html', array('species' => $species, 'fishs' => $fishs));
+//        Redirect::to('/', array('message' => 'not implemented yet!'));
     }
 
 }

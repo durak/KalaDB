@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<div class="panel">
+    <h3><i>Kalalaji:</i></h3>
+    <h1>{{species.name_fin}}</h1>
+    <h1>{{species.name_lat}}</h1>
+    <img src='{{base_path}}/assets/pics/{{species.name_fin}}.png' class="img-responsive center-block">
+</div>
+
+
+<!-- Saadut kalat -->
+{% if fishs|length > 0 %}
+<h3><i>Saadut kalat</i></h3>
+{% include '/fish/list_fishes.html' %}
+{% endif %}
+{% endblock %}
+
