@@ -20,7 +20,8 @@ class SpeciesController extends BaseController {
     }
 
     public static function show($id) {
-        $species = Species::find($id);        
+        $species = Species::find($id);      
+        self::check_exists($species);
 
         $options = array('player_id' => self::get_user_logged_in()->id, 'species_id' => $id);
         $fishs = Fish::AllWith($options);        

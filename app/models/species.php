@@ -47,7 +47,7 @@ class Species extends BaseModel {
     }
 
     /*
-     * Return an array with count of catched fishes in each species 
+     * Return a sorted array (DESC) with count of catched fishes in each species 
      *  - with a certain spot
      *  - with a certain lure
      *  - in a certain trip
@@ -108,11 +108,10 @@ class Species extends BaseModel {
         if ($speciess_counts) {
             $values = array_values($speciess_counts);
             $top = $values[0];
+            
             return self::find($top['id']);
-//            return $top['name_fin'];
         }
         
-//        return "-";
     }
 
     private static function count_cmp($a, $b) {

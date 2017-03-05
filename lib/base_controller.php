@@ -48,4 +48,12 @@ class BaseController {
         }
     }
 
+    public static function check_exists($object) {
+        if (!$object) {
+            $errors = array();
+            $errors[] = 'Ei oikeuksia!';
+            Redirect::to('/', array('errors' => $errors));
+        }
+    }
+
 }
